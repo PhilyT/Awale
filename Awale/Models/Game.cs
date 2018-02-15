@@ -9,19 +9,29 @@ namespace Entities.Models
 {
     public class Game
     {
-        private Player player1;
-        private Player player2;
-        private ObservableCollection<Poi> trou1;
-        private ObservableCollection<Poi> trou2;
-        private ObservableCollection<Poi> trou3;
-        private ObservableCollection<Poi> trou4;
-        private ObservableCollection<Poi> trou5;
-        private ObservableCollection<Poi> trou6;
-        private ObservableCollection<Poi> trou7;
-        private ObservableCollection<Poi> trou8;
-        private ObservableCollection<Poi> trou9;
-        private ObservableCollection<Poi> trou10;
-        private ObservableCollection<Poi> trou11;
-        private ObservableCollection<Poi> trou12;
+        private List<string> trous;
+
+        public Game()
+        {
+            trous = new List<string>();
+            trous.Add("Trou1");
+            trous.Add("Trou2");
+            trous.Add("Trou3");
+            trous.Add("Trou4");
+            trous.Add("Trou5");
+            trous.Add("Trou6");
+            trous.Add("Trou1Adverse");
+            trous.Add("Trou2Adverse");
+            trous.Add("Trou3Adverse");
+            trous.Add("Trou4Adverse");
+            trous.Add("Trou5Adverse");
+            trous.Add("Trou6Adverse");
+        }
+
+        public string Next(string element)
+        {
+            int index = trous.FindIndex(item => element.Equals(item));
+            return trous.ElementAt(index);
+        }
     }
 }
