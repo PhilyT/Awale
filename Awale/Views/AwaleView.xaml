@@ -43,7 +43,7 @@
                     <TranslateTransform/>
                 </TransformGroup>
             </LinearGradientBrush.RelativeTransform>
-            <GradientStop Color="#FF592C0C" Offset="0.58"/>
+            <GradientStop Color="#FF592C0C" Offset="0.56"/>
             <GradientStop Offset="0.55"/>
         </LinearGradientBrush>
         <SolidColorBrush x:Key="ColorPoi" Color="#FF14B41C"/>
@@ -71,14 +71,9 @@
             <ColumnDefinition Width="5*"/>
             <ColumnDefinition Width="3*"/>
         </Grid.ColumnDefinitions>
-        <Canvas Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="11" Background="{DynamicResource ColorBoard}"/>
-        <Canvas Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="11" Background="{DynamicResource ColorBoard}"/>
-        <Canvas Grid.Column="1" Grid.Row="4" Grid.ColumnSpan="11" Background="{DynamicResource ColorBoard}"/>
-        <Canvas Grid.Column="2" Grid.Row="1" Grid.RowSpan="3" Background="{DynamicResource ColorBoard}"/>
-        <Canvas Grid.Column="4" Grid.Row="1" Grid.RowSpan="3" Background="{DynamicResource ColorBoard}"/>
-        <Canvas Grid.Column="6" Grid.Row="1" Grid.RowSpan="3" Background="{DynamicResource ColorBoard}"/>
-        <Canvas Grid.Column="8" Grid.Row="1" Grid.RowSpan="3" Background="{DynamicResource ColorBoard}"/>
-        <Canvas Grid.Column="10" Grid.Row="1" Grid.RowSpan="3" Background="{DynamicResource ColorBoard}"/>
+        <Canvas x:Name="Board" Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="11" Grid.RowSpan="5">
+            <Rectangle Width="{Binding ActualWidth, ElementName=Board}" Height="{Binding ActualHeight, ElementName=Board}" Fill="{DynamicResource ColorBoard}"/>
+        </Canvas>
         <Canvas x:Name="canvas1" Grid.Column="0" Grid.Row="0" Grid.RowSpan="3" Grid.ColumnSpan="3">
             <Ellipse x:Name="ellipse" Width="{Binding ActualWidth, ConverterParameter={StaticResource myBoardDecimal}, Converter={StaticResource PercentageConverter}, ElementName=canvas1}" Height="{Binding ActualHeight, ElementName=canvas1}" Fill="{DynamicResource ColorBoard}" OpacityMask="{DynamicResource OpacityBoard}"/>
         </Canvas>
@@ -109,148 +104,148 @@
                 </Ellipse.RenderTransform>
             </Ellipse>
         </Canvas>
-        <Canvas x:Name="canvas" Grid.Column="1" Grid.Row="1" Background="{DynamicResource ColorBoard}">
-            <Ellipse x:Name="Trou6Adverse"  Width="{Binding ActualWidth, ElementName=canvas}" Height="{Binding ActualHeight, ElementName=canvas}" Fill="{DynamicResource ColorTrou}">
+        <Canvas x:Name="canvas" Grid.Column="1" Grid.Row="1" >
+            <Ellipse x:Name="Trou6Adverse_Ellipse"  Width="{Binding ActualWidth, ElementName=canvas}" Height="{Binding ActualHeight, ElementName=canvas}" Fill="{DynamicResource ColorTrou}">
                 <Ellipse.InputBindings>
-                    <MouseBinding MouseAction="LeftClick" Command="{Binding DelegateCommand}"/>
+                    <MouseBinding MouseAction="LeftClick" Command="{Binding DelegateCommand}" CommandParameter="{Binding ElementName=Trou6Adverse_Ellipse, Mode=OneWay}"/>
                 </Ellipse.InputBindings>
             </Ellipse>
         </Canvas>
-        <Canvas Grid.Column="3" Grid.Row="1" Background="{DynamicResource ColorBoard}">
-            <Ellipse x:Name="Trou5Adverse"  Width="{Binding ActualWidth, ElementName=canvas}" Height="{Binding ActualHeight, ElementName=canvas}" Fill="{DynamicResource ColorTrou}">
+        <Canvas Grid.Column="3" Grid.Row="1" >
+            <Ellipse x:Name="Trou5Adverse_Ellipse"  Width="{Binding ActualWidth, ElementName=canvas}" Height="{Binding ActualHeight, ElementName=canvas}" Fill="{DynamicResource ColorTrou}">
                 <Ellipse.InputBindings>
-                    <MouseBinding MouseAction="LeftClick" Command="{Binding DelegateCommand}"/>
+                    <MouseBinding MouseAction="LeftClick" Command="{Binding DelegateCommand}" CommandParameter="{Binding ElementName=Trou5Adverse_Ellipse, Mode=OneWay}"/>
                 </Ellipse.InputBindings>
             </Ellipse>
         </Canvas>
-        <Canvas Grid.Column="5" Grid.Row="1" Background="{DynamicResource ColorBoard}">
-            <Ellipse x:Name="Trou4Adverse"  Width="{Binding ActualWidth, ElementName=canvas}" Height="{Binding ActualHeight, ElementName=canvas}" Fill="{DynamicResource ColorTrou}">
+        <Canvas Grid.Column="5" Grid.Row="1" >
+            <Ellipse x:Name="Trou4Adverse_Ellipse"  Width="{Binding ActualWidth, ElementName=canvas}" Height="{Binding ActualHeight, ElementName=canvas}" Fill="{DynamicResource ColorTrou}">
                 <Ellipse.InputBindings>
-                    <MouseBinding MouseAction="LeftClick" Command="{Binding DelegateCommand}"/>
+                    <MouseBinding MouseAction="LeftClick" Command="{Binding DelegateCommand}" CommandParameter="{Binding ElementName=Trou4Adverse_Ellipse, Mode=OneWay}"/>
                 </Ellipse.InputBindings>
             </Ellipse>
         </Canvas>
-        <Canvas  Grid.Column="7" Grid.Row="1" Background="{DynamicResource ColorBoard}">
-            <Ellipse x:Name="Trou3Adverse"  Width="{Binding ActualWidth, ElementName=canvas}" Height="{Binding ActualHeight, ElementName=canvas}" Fill="{DynamicResource ColorTrou}">
+        <Canvas  Grid.Column="7" Grid.Row="1" >
+            <Ellipse x:Name="Trou3Adverse_Ellipse"  Width="{Binding ActualWidth, ElementName=canvas}" Height="{Binding ActualHeight, ElementName=canvas}" Fill="{DynamicResource ColorTrou}">
                 <Ellipse.InputBindings>
-                    <MouseBinding MouseAction="LeftClick" Command="{Binding DelegateCommand}"/>
+                    <MouseBinding MouseAction="LeftClick" Command="{Binding DelegateCommand}" CommandParameter="{Binding ElementName=Trou3Adverse_Ellipse, Mode=OneWay}"/>
                 </Ellipse.InputBindings>
             </Ellipse>
         </Canvas>
-        <Canvas  Grid.Column="9" Grid.Row="1" Background="{DynamicResource ColorBoard}">
-            <Ellipse x:Name="Trou2Adverse"  Width="{Binding ActualWidth, ElementName=canvas}" Height="{Binding ActualHeight, ElementName=canvas}" Fill="{DynamicResource ColorTrou}">
+        <Canvas  Grid.Column="9" Grid.Row="1" >
+            <Ellipse x:Name="Trou2Adverse_Ellipse"  Width="{Binding ActualWidth, ElementName=canvas}" Height="{Binding ActualHeight, ElementName=canvas}" Fill="{DynamicResource ColorTrou}">
                 <Ellipse.InputBindings>
-                    <MouseBinding MouseAction="LeftClick" Command="{Binding DelegateCommand}"/>
+                    <MouseBinding MouseAction="LeftClick" Command="{Binding DelegateCommand}" CommandParameter="{Binding ElementName=Trou2Adverse_Ellipse, Mode=OneWay}"/>
                 </Ellipse.InputBindings>
             </Ellipse>
         </Canvas>
         <Canvas Grid.Column="11" Grid.Row="1" Background="{DynamicResource ColorBoard}">
-            <Ellipse x:Name="Trou1Adverse" Width="{Binding ActualWidth, ElementName=canvas}" Height="{Binding ActualHeight, ElementName=canvas}" Fill="{DynamicResource ColorTrou}">
+            <Ellipse x:Name="Trou1Adverse_Ellipse" Width="{Binding ActualWidth, ElementName=canvas}" Height="{Binding ActualHeight, ElementName=canvas}" Fill="{DynamicResource ColorTrou}">
                 <Ellipse.InputBindings>
-                    <MouseBinding MouseAction="LeftClick" Command="{Binding DelegateCommand}"/>
+                    <MouseBinding MouseAction="LeftClick" Command="{Binding DelegateCommand}" CommandParameter="{Binding ElementName=Trou1Adverse_Ellipse, Mode=OneWay}"/>
                 </Ellipse.InputBindings>
             </Ellipse>
         </Canvas>
         <Canvas Grid.Column="1" Grid.Row="3" Background="{DynamicResource ColorBoard}">
-            <Ellipse x:Name="Trou1"  Width="{Binding ActualWidth, ElementName=canvas}" Height="{Binding ActualHeight, ElementName=canvas}" Fill="{DynamicResource ColorTrou}">
+            <Ellipse x:Name="Trou1_Ellipse"  Width="{Binding ActualWidth, ElementName=canvas}" Height="{Binding ActualHeight, ElementName=canvas}" Fill="{DynamicResource ColorTrou}">
                 <Ellipse.InputBindings>
-                    <MouseBinding MouseAction="LeftClick" Command="{Binding DelegateCommand}"/>
+                    <MouseBinding MouseAction="LeftClick" Command="{Binding DelegateCommand}" CommandParameter="{Binding ElementName=Trou1_Ellipse, Mode=OneWay}"/>
                 </Ellipse.InputBindings>
             </Ellipse>
         </Canvas>
         <Canvas  Grid.Column="3" Grid.Row="3" Background="{DynamicResource ColorBoard}">
-            <Ellipse x:Name="Trou2"  Width="{Binding ActualWidth, ElementName=canvas}" Height="{Binding ActualHeight, ElementName=canvas}" Fill="{DynamicResource ColorTrou}">
+            <Ellipse x:Name="Trou2_Ellipse"  Width="{Binding ActualWidth, ElementName=canvas}" Height="{Binding ActualHeight, ElementName=canvas}" Fill="{DynamicResource ColorTrou}">
                 <Ellipse.InputBindings>
-                    <MouseBinding MouseAction="LeftClick" Command="{Binding DelegateCommand}"/>
+                    <MouseBinding MouseAction="LeftClick" Command="{Binding DelegateCommand}" CommandParameter="{Binding ElementName=Trou2_Ellipse, Mode=OneWay}"/>
                 </Ellipse.InputBindings>
             </Ellipse>
         </Canvas>
         <Canvas Grid.Column="5" Grid.Row="3" Background="{DynamicResource ColorBoard}">
-            <Ellipse x:Name="Trou3"  Width="{Binding ActualWidth, ElementName=canvas}" Height="{Binding ActualHeight, ElementName=canvas}" Fill="{DynamicResource ColorTrou}">
+            <Ellipse x:Name="Trou3_Ellipse"  Width="{Binding ActualWidth, ElementName=canvas}" Height="{Binding ActualHeight, ElementName=canvas}" Fill="{DynamicResource ColorTrou}">
                 <Ellipse.InputBindings>
-                    <MouseBinding MouseAction="LeftClick" Command="{Binding DelegateCommand}"/>
+                    <MouseBinding MouseAction="LeftClick" Command="{Binding DelegateCommand}" CommandParameter="{Binding ElementName=Trou3_Ellipse, Mode=OneWay}"/>
                 </Ellipse.InputBindings>
             </Ellipse>
         </Canvas>
         <Canvas  Grid.Column="7" Grid.Row="3" Background="{DynamicResource ColorBoard}">
-            <Ellipse x:Name="Trou4"  Width="{Binding ActualWidth, ElementName=canvas}" Height="{Binding ActualHeight, ElementName=canvas}" Fill="{DynamicResource ColorTrou}">
+            <Ellipse x:Name="Trou4_Ellipse"  Width="{Binding ActualWidth, ElementName=canvas}" Height="{Binding ActualHeight, ElementName=canvas}" Fill="{DynamicResource ColorTrou}">
                 <Ellipse.InputBindings>
-                    <MouseBinding MouseAction="LeftClick" Command="{Binding DelegateCommand}"/>
+                    <MouseBinding MouseAction="LeftClick" Command="{Binding DelegateCommand}" CommandParameter="{Binding ElementName=Trou4_Ellipse, Mode=OneWay}"/>
                 </Ellipse.InputBindings>
             </Ellipse>
         </Canvas>
         <Canvas Grid.Column="9" Grid.Row="3" Background="{DynamicResource ColorBoard}">
-            <Ellipse x:Name="Trou5"  Width="{Binding ActualWidth, ElementName=canvas}" Height="{Binding ActualHeight, ElementName=canvas}" Fill="{DynamicResource ColorTrou}">
+            <Ellipse x:Name="Trou5_Ellipse"  Width="{Binding ActualWidth, ElementName=canvas}" Height="{Binding ActualHeight, ElementName=canvas}" Fill="{DynamicResource ColorTrou}">
                 <Ellipse.InputBindings>
-                    <MouseBinding MouseAction="LeftClick" Command="{Binding DelegateCommand}"/>
+                    <MouseBinding MouseAction="LeftClick" Command="{Binding DelegateCommand}" CommandParameter="{Binding ElementName=Trou5_Ellipse, Mode=OneWay}"/>
                 </Ellipse.InputBindings>
             </Ellipse>
         </Canvas>
         <Canvas Grid.Column="11" Grid.Row="3" Background="{DynamicResource ColorBoard}">
-            <Ellipse  Width="{Binding ActualWidth, ElementName=canvas}" Height="{Binding ActualHeight, ElementName=canvas}" Fill="{DynamicResource ColorTrou}">
+            <Ellipse x:Name="Trou6_Ellipse"  Width="{Binding ActualWidth, ElementName=canvas}" Height="{Binding ActualHeight, ElementName=canvas}" Fill="{DynamicResource ColorTrou}">
                 <Ellipse.InputBindings>
-                    <MouseBinding MouseAction="LeftClick" Command="{Binding DelegateCommand}"/>
+                    <MouseBinding MouseAction="LeftClick" Command="{Binding DelegateCommand}" CommandParameter="{Binding ElementName=Trou6_Ellipse, Mode=OneWay}"/>
                 </Ellipse.InputBindings>
             </Ellipse>
         </Canvas>
-        <Label Content="{Binding Trou6Adverse}"  Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1" Foreground="{DynamicResource ColorPoi}" FontWeight="Bold" FontSize="{Binding ActualHeight, ConverterParameter={StaticResource myAwaleDecimal}, Converter={StaticResource PercentageConverter}, ElementName=ellipse, Mode=OneWay}">
+        <Label x:Name="Trou6Adverse_Label" Content="{Binding Trou6Adverse}"  Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1" Foreground="{DynamicResource ColorPoi}" FontWeight="Bold" FontSize="{Binding ActualHeight, ConverterParameter={StaticResource myAwaleDecimal}, Converter={StaticResource PercentageConverter}, ElementName=ellipse, Mode=OneWay}">
             <Label.InputBindings>
-                <MouseBinding MouseAction="LeftClick" Command="{Binding DelegateCommand}"/>
+                <MouseBinding MouseAction="LeftClick" Command="{Binding DelegateCommand}" CommandParameter="{Binding ElementName=Trou6Adverse_Label, Mode=OneWay}"/>
             </Label.InputBindings>
         </Label>
-        <Label Content="{Binding Trou5Adverse}" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1" Foreground="{DynamicResource ColorPoi}" FontWeight="Bold" FontSize="{Binding ActualHeight, ConverterParameter={StaticResource myAwaleDecimal}, Converter={StaticResource PercentageConverter}, ElementName=ellipse, Mode=OneWay}">
+        <Label x:Name="Trou5Adverse_Label" Content="{Binding Trou5Adverse}" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1" Foreground="{DynamicResource ColorPoi}" FontWeight="Bold" FontSize="{Binding ActualHeight, ConverterParameter={StaticResource myAwaleDecimal}, Converter={StaticResource PercentageConverter}, ElementName=ellipse, Mode=OneWay}">
             <Label.InputBindings>
-                <MouseBinding MouseAction="LeftClick" Command="{Binding DelegateCommand}"/>
+                <MouseBinding MouseAction="LeftClick" Command="{Binding DelegateCommand}" CommandParameter="{Binding ElementName=Trou5Adverse_Label, Mode=OneWay}"/>
             </Label.InputBindings>
         </Label>
-        <Label Content="{Binding Trou4Adverse}" Grid.Column="5" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1" Foreground="{DynamicResource ColorPoi}" FontWeight="Bold" FontSize="{Binding ActualHeight, ConverterParameter={StaticResource myAwaleDecimal}, Converter={StaticResource PercentageConverter}, ElementName=ellipse, Mode=OneWay}">
+        <Label x:Name="Trou4Adverse_Label" Content="{Binding Trou4Adverse}" Grid.Column="5" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1" Foreground="{DynamicResource ColorPoi}" FontWeight="Bold" FontSize="{Binding ActualHeight, ConverterParameter={StaticResource myAwaleDecimal}, Converter={StaticResource PercentageConverter}, ElementName=ellipse, Mode=OneWay}">
             <Label.InputBindings>
-                <MouseBinding MouseAction="LeftClick" Command="{Binding DelegateCommand}"/>
+                <MouseBinding MouseAction="LeftClick" Command="{Binding DelegateCommand}" CommandParameter="{Binding ElementName=Trou4Adverse_Label, Mode=OneWay}"/>
             </Label.InputBindings>
         </Label>
-        <Label Content="{Binding Trou3Adverse}" Grid.Column="7" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1" Foreground="{DynamicResource ColorPoi}" FontWeight="Bold" FontSize="{Binding ActualHeight, ConverterParameter={StaticResource myAwaleDecimal}, Converter={StaticResource PercentageConverter}, ElementName=ellipse, Mode=OneWay}">
+        <Label x:Name="Trou3Adverse_Label" Content="{Binding Trou3Adverse}" Grid.Column="7" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1" Foreground="{DynamicResource ColorPoi}" FontWeight="Bold" FontSize="{Binding ActualHeight, ConverterParameter={StaticResource myAwaleDecimal}, Converter={StaticResource PercentageConverter}, ElementName=ellipse, Mode=OneWay}">
             <Label.InputBindings>
-                <MouseBinding MouseAction="LeftClick" Command="{Binding DelegateCommand}"/>
+                <MouseBinding MouseAction="LeftClick" Command="{Binding DelegateCommand}" CommandParameter="{Binding ElementName=Trou3Adverse_Label, Mode=OneWay}"/>
             </Label.InputBindings>
         </Label>
-        <Label Content="{Binding Trou2Adverse}" Grid.Column="9" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1" Foreground="{DynamicResource ColorPoi}" FontWeight="Bold" FontSize="{Binding ActualHeight, ConverterParameter={StaticResource myAwaleDecimal}, Converter={StaticResource PercentageConverter}, ElementName=ellipse, Mode=OneWay}">
+        <Label x:Name="Trou2Adverse_Label" Content="{Binding Trou2Adverse}" Grid.Column="9" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1" Foreground="{DynamicResource ColorPoi}" FontWeight="Bold" FontSize="{Binding ActualHeight, ConverterParameter={StaticResource myAwaleDecimal}, Converter={StaticResource PercentageConverter}, ElementName=ellipse, Mode=OneWay}">
             <Label.InputBindings>
-                <MouseBinding MouseAction="LeftClick" Command="{Binding DelegateCommand}"/>
+                <MouseBinding MouseAction="LeftClick" Command="{Binding DelegateCommand}" CommandParameter="{Binding ElementName=Trou2Adverse_Label, Mode=OneWay}"/>
             </Label.InputBindings>
         </Label>
-        <Label Content="{Binding Trou1Adverse}" Grid.Column="11" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1" Foreground="{DynamicResource ColorPoi}" FontWeight="Bold" FontSize="{Binding ActualHeight, ConverterParameter={StaticResource myAwaleDecimal}, Converter={StaticResource PercentageConverter}, ElementName=ellipse, Mode=OneWay}">
+        <Label x:Name="Trou1Adverse_Label" Content="{Binding Trou1Adverse}" Grid.Column="11" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1" Foreground="{DynamicResource ColorPoi}" FontWeight="Bold" FontSize="{Binding ActualHeight, ConverterParameter={StaticResource myAwaleDecimal}, Converter={StaticResource PercentageConverter}, ElementName=ellipse, Mode=OneWay}">
             <Label.InputBindings>
-                <MouseBinding MouseAction="LeftClick" Command="{Binding DelegateCommand}"/>
+                <MouseBinding MouseAction="LeftClick" Command="{Binding DelegateCommand}" CommandParameter="{Binding ElementName=Trou1Adverse_Label, Mode=OneWay}"/>
             </Label.InputBindings>
         </Label>
-        <Label Content="{Binding Trou1}" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="3" Foreground="{DynamicResource ColorPoi}" FontWeight="Bold" FontSize="{Binding ActualHeight, ConverterParameter={StaticResource myAwaleDecimal}, Converter={StaticResource PercentageConverter}, ElementName=ellipse, Mode=OneWay}">
+        <Label x:Name="Trou1_Label" Content="{Binding Trou1}" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="3" Foreground="{DynamicResource ColorPoi}" FontWeight="Bold" FontSize="{Binding ActualHeight, ConverterParameter={StaticResource myAwaleDecimal}, Converter={StaticResource PercentageConverter}, ElementName=ellipse, Mode=OneWay}">
             <Label.InputBindings>
-                <MouseBinding MouseAction="LeftClick" Command="{Binding DelegateCommand}"/>
+                <MouseBinding MouseAction="LeftClick" Command="{Binding DelegateCommand}" CommandParameter="{Binding ElementName=Trou1_Label, Mode=OneWay}"/>
             </Label.InputBindings>
         </Label>
-        <Label Content="{Binding Trou2}" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="3" Foreground="{DynamicResource ColorPoi}" FontWeight="Bold" FontSize="{Binding ActualHeight, ConverterParameter={StaticResource myAwaleDecimal}, Converter={StaticResource PercentageConverter}, ElementName=ellipse, Mode=OneWay}">
+        <Label x:Name="Trou2_Label" Content="{Binding Trou2}" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="3" Foreground="{DynamicResource ColorPoi}" FontWeight="Bold" FontSize="{Binding ActualHeight, ConverterParameter={StaticResource myAwaleDecimal}, Converter={StaticResource PercentageConverter}, ElementName=ellipse, Mode=OneWay}">
             <Label.InputBindings>
-                <MouseBinding MouseAction="LeftClick" Command="{Binding DelegateCommand}"/>
+                <MouseBinding MouseAction="LeftClick" Command="{Binding DelegateCommand}" CommandParameter="{Binding ElementName=Trou2_Label, Mode=OneWay}"/>
             </Label.InputBindings>
         </Label>
-        <Label Content="{Binding Trou3}" Grid.Column="5" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="3" Foreground="{DynamicResource ColorPoi}" FontWeight="Bold" FontSize="{Binding ActualHeight, ConverterParameter={StaticResource myAwaleDecimal}, Converter={StaticResource PercentageConverter}, ElementName=ellipse, Mode=OneWay}">
+        <Label x:Name="Trou3_Label" Content="{Binding Trou3}" Grid.Column="5" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="3" Foreground="{DynamicResource ColorPoi}" FontWeight="Bold" FontSize="{Binding ActualHeight, ConverterParameter={StaticResource myAwaleDecimal}, Converter={StaticResource PercentageConverter}, ElementName=ellipse, Mode=OneWay}">
             <Label.InputBindings>
-                <MouseBinding MouseAction="LeftClick" Command="{Binding DelegateCommand}"/>
+                <MouseBinding MouseAction="LeftClick" Command="{Binding DelegateCommand}" CommandParameter="{Binding ElementName=Trou3_Label, Mode=OneWay}"/>
             </Label.InputBindings>
         </Label>
-        <Label Content="{Binding Trou4}" Grid.Column="7" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="3" Foreground="{DynamicResource ColorPoi}" FontWeight="Bold" FontSize="{Binding ActualHeight, ConverterParameter={StaticResource myAwaleDecimal}, Converter={StaticResource PercentageConverter}, ElementName=ellipse, Mode=OneWay}">
+        <Label x:Name="Trou4_Label" Content="{Binding Trou4}" Grid.Column="7" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="3" Foreground="{DynamicResource ColorPoi}" FontWeight="Bold" FontSize="{Binding ActualHeight, ConverterParameter={StaticResource myAwaleDecimal}, Converter={StaticResource PercentageConverter}, ElementName=ellipse, Mode=OneWay}">
             <Label.InputBindings>
-                <MouseBinding MouseAction="LeftClick" Command="{Binding DelegateCommand}"/>
+                <MouseBinding MouseAction="LeftClick" Command="{Binding DelegateCommand}" CommandParameter="{Binding ElementName=Trou4_Label, Mode=OneWay}"/>
             </Label.InputBindings>
         </Label>
-        <Label Content="{Binding Trou5}" Grid.Column="9" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="3" Foreground="{DynamicResource ColorPoi}" FontWeight="Bold" FontSize="{Binding ActualHeight, ConverterParameter={StaticResource myAwaleDecimal}, Converter={StaticResource PercentageConverter}, ElementName=ellipse, Mode=OneWay}">
+        <Label x:Name="Trou5_Label" Content="{Binding Trou5}" Grid.Column="9" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="3" Foreground="{DynamicResource ColorPoi}" FontWeight="Bold" FontSize="{Binding ActualHeight, ConverterParameter={StaticResource myAwaleDecimal}, Converter={StaticResource PercentageConverter}, ElementName=ellipse, Mode=OneWay}">
             <Label.InputBindings>
-                <MouseBinding MouseAction="LeftClick" Command="{Binding DelegateCommand}"/>
+                <MouseBinding MouseAction="LeftClick" Command="{Binding DelegateCommand}" CommandParameter="{Binding ElementName=Trou5_Label, Mode=OneWay}"/>
             </Label.InputBindings>
         </Label>
-        <Label Content="{Binding Trou6}" Grid.Column="11" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="3" Foreground="{DynamicResource ColorPoi}" FontWeight="Bold" FontSize="{Binding ActualHeight, ConverterParameter={StaticResource myAwaleDecimal}, Converter={StaticResource PercentageConverter}, ElementName=ellipse, Mode=OneWay}">
+        <Label x:Name="Trou6_Label" Content="{Binding Trou6}" Grid.Column="11" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="3" Foreground="{DynamicResource ColorPoi}" FontWeight="Bold" FontSize="{Binding ActualHeight, ConverterParameter={StaticResource myAwaleDecimal}, Converter={StaticResource PercentageConverter}, ElementName=ellipse, Mode=OneWay}">
             <Label.InputBindings>
-                <MouseBinding MouseAction="LeftClick" Command="{Binding DelegateCommand}"/>
+                <MouseBinding MouseAction="LeftClick" Command="{Binding DelegateCommand}" CommandParameter="{Binding ElementName=Trou6_Label, Mode=OneWay}"/>
             </Label.InputBindings>
         </Label>
     </Grid>

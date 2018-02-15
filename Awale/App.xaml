@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:Awale"
              xmlns:utils="clr-namespace:Awale.Utils"
+             xmlns:models="clr-namespace:Awale.Models"
              xmlns:vm="clr-namespace:Awale.ViewModels"
              xmlns:sys="clr-namespace:System;assembly=mscorlib"
              StartupUri="Views\MainWindow.xaml">

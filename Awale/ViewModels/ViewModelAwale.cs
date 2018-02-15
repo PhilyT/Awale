@@ -1,11 +1,15 @@
 ﻿using Awale.Utils;
+using Awale.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Shapes;
 
 namespace Awale.ViewModels
 {
@@ -24,6 +28,7 @@ namespace Awale.ViewModels
         private int trou5;
         private int trou6;
         private DelegateCommand delegateCommand;
+        private Game game;
 
         public ViewModelAwale()
         {
@@ -40,11 +45,72 @@ namespace Awale.ViewModels
             trou5Adverse = 4;
             trou6Adverse = 4;
             DelegateCommand = new DelegateCommand(o => OnClickTrou(o));
+            game = new Game();
         }
 
         private void OnClickTrou(object o)
         {
-            MessageBox.Show("Commande Fontionnelle.", "Test", MessageBoxButton.OK);
+            string nameSender = "";
+            Label senderAsLabel = o as Label;
+            if(senderAsLabel != null)
+            {
+                nameSender = senderAsLabel.Name.Split('_')[0];
+            }
+            Ellipse senderAsEllise = o as Ellipse;
+            if (senderAsEllise != null)
+            {
+                nameSender = senderAsEllise.Name.Split('_')[0];
+            }
+            bool tourJoueur2 = (nameSender.Contains("Adverse") && game.Playeur2.TourDeJeu);
+            bool tourJoueur1 = (!nameSender.Contains("Adverse") && game.Playeur1.TourDeJeu);
+            if (tourJoueur2 || tourJoueur1)
+            {
+                List<PropertyInfo> propertiesInfos = new List<PropertyInfo>(GetType().GetProperties());
+                PropertyInfo sender = propertiesInfos.Find(item => item.Name.Equals(nameSender));
+                int nbGraines = (int)sender.GetValue(this);
+                if(nbGraines > 0)
+                {
+                    sender.SetValue(this, 0);
+                    string nameDest = game.Next(nameSender);
+                    PropertyInfo dest = null;
+                    while (nbGraines > 0)
+                    {
+                        if (!nameSender.Equals(nameDest))
+                        {
+                            dest = propertiesInfos.Find(item => item.Name.Equals(nameDest));
+                            int nbGrainesDest = (int)dest.GetValue(this);
+                            dest.SetValue(this, nbGrainesDest + 1);
+                            nbGraines--;
+                        }
+                        if(nbGraines > 0)
+                        {
+                            nameDest = game.Next(nameDest);
+                        }
+                    }
+                    int count = 5;
+                    nbGraines = (int)dest.GetValue(this);
+                    bool peuRecolterJoueur1 = tourJoueur1 && nameDest.Contains("Adverse") && (nbGraines == 2 || nbGraines == 3);
+                    bool peuRecolterJoueur2 = tourJoueur2 && !nameDest.Contains("Adverse") && (nbGraines == 2 || nbGraines == 3);
+                    while (peuRecolterJoueur1||peuRecolterJoueur2 && count>0)
+                    {
+                        dest.SetValue(this, 0);
+                        game.Playeur1.Recolte += nbGraines;
+                        nameDest = game.Previous(nameDest);
+                        dest = propertiesInfos.Find(item => item.Name.Equals(nameDest));
+                        count--;
+                        nbGraines = (int)dest.GetValue(this);
+                        peuRecolterJoueur1 = tourJoueur1 && nameDest.Contains("Adverse") && (nbGraines == 2 || nbGraines == 3);
+                        peuRecolterJoueur2 = tourJoueur2 && !nameDest.Contains("Adverse") && (nbGraines == 2 || nbGraines == 3);
+                    }
+                    game.Playeur1.TourDeJeu = !game.Playeur1.TourDeJeu;
+                    game.Playeur2.TourDeJeu = !game.Playeur2.TourDeJeu;
+                }
+            }
+            else
+            {
+                MessageBox.Show("Ce n'est pas votre tour !", "Action Invalide", MessageBoxButton.OK);
+            }
+            
         }
 
         public int Trou1Adverse
