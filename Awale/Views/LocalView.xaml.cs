@@ -1,5 +1,4 @@
-﻿using Awale.ViewModels;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,15 +16,13 @@ using System.Windows.Shapes;
 namespace Awale.Views
 {
     /// <summary>
-    /// Logique d'interaction pour MainWindow.xaml
+    /// Logique d'interaction pour LocalView.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class LocalView : Page
     {
-        public MainWindow()
+        public LocalView()
         {
             InitializeComponent();
-            DataContext = new ViewModelMain(Navigate);
         }
-
     }
 }

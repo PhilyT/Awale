@@ -1,4 +1,5 @@
-﻿using Awale.ViewModels;
+﻿using Awale.Utils;
+using Awale.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,15 +18,17 @@ using System.Windows.Shapes;
 namespace Awale.Views
 {
     /// <summary>
-    /// Logique d'interaction pour MainWindow.xaml
+    /// Logique d'interaction pour Page1.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MenuView: Page
     {
-        public MainWindow()
+       
+        public MenuView(Frame frame)
         {
             InitializeComponent();
-            DataContext = new ViewModelMain(Navigate);
-        }
+            DataContext = new ViewModelMenu(frame);
 
+        }
+      
     }
 }

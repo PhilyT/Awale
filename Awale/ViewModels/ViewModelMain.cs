@@ -1,29 +1,43 @@
-﻿using Awale.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace Awale.ViewModels
 {
     public class ViewModelMain : ViewModelBase
     {
-        private Game game;
         //private RelayCommand relayCommand;
+        private Page page;
         //public RelayCommand RelayCommand { get => relayCommand; set => relayCommand = value; }
-        public ViewModelMain()
+        public ViewModelMain(Frame frame)
         {
-            //this.RelayCommand = new RelayCommand(o => OpenGameClick("MainButton"));
-            Game = new Game();
-        }
+            page = new MenuView(frame);
 
-        public Game Game { get => game; set { game = value;RaisePropertyChanged("Game"); } }
+            //this.RelayCommand = new RelayCommand(o => OpenGameClick("MainButton"));
+        }
 
         //private void OpenGameClick(object v)
         //{
         //    throw new NotImplementedException();
         //}
+        public Page Page
+        {
+            get => page;
+            set
+            {
+                if (Equals(page, value))
+                {
+                    return;
+                }
+
+                this.page = value;
+                RaisePropertyChanged("Page");
+            }
+        }
+
     }
 }
