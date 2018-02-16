@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Awale.Utils;
+using Awale.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +22,13 @@ namespace Awale.Views
     /// </summary>
     public partial class MenuView: Page
     {
-        public MenuView()
+       
+        public MenuView(Frame frame)
         {
             InitializeComponent();
+            DataContext = new ViewModelMenu(frame);
+
         }
+      
     }
 }

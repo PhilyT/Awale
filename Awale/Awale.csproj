@@ -71,6 +71,7 @@
     </ApplicationDefinition>
     <Compile Include="Utils\DelegateCommand.cs" />
     <Compile Include="Utils\PercentageConverter.cs" />
+    <Compile Include="ViewModels\ViewModelMenu.cs" />
     <Compile Include="Views\AwaleView.xaml.cs">
       <DependentUpon>AwaleView.xaml</DependentUpon>
     </Compile>
@@ -79,7 +80,23 @@
     <Compile Include="ViewModels\ViewModelAwale.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
     <Compile Include="ViewModels\ViewModelMain.cs" />
+    <Compile Include="Views\LocalView.xaml.cs">
+      <DependentUpon>LocalView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MenuView.xaml.cs">
+      <DependentUpon>MenuView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Reseau.xaml.cs">
+      <DependentUpon>Reseau.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Score.xaml.cs">
+      <DependentUpon>Score.xaml</DependentUpon>
+    </Compile>
     <Page Include="Views\AwaleView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\LocalView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -95,6 +112,18 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Views\MenuView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Reseau.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Score.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -133,6 +162,10 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\copert022.jpg" />
+    <Resource Include="Images\noel_afrique.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

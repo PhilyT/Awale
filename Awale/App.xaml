@@ -3,12 +3,9 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:Awale"
              xmlns:utils="clr-namespace:Awale.Utils"
-             xmlns:models="clr-namespace:Awale.Models"
-             xmlns:vm="clr-namespace:Awale.ViewModels"
              xmlns:sys="clr-namespace:System;assembly=mscorlib"
              StartupUri="Views\MainWindow.xaml">
     <Application.Resources>
-        <vm:ViewModelMain x:Key="ViewModelMain"/>
         <utils:PercentageConverter x:Key="PercentageConverter"/>
         <sys:Double x:Key="myAwaleDecimal">0.333</sys:Double>
         <sys:Double x:Key="myBoardDecimal">0.778</sys:Double>

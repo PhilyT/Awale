@@ -10,11 +10,11 @@ none
 false
 TRACE
 C:\Users\deptinfo\Documents\Awale\Awale\App.xaml
-2-465435437
+6-1303217973
 
-13-917424159
+19886734205
 131569487696
-Views\AwaleView.xaml;Views\MainWindow.xaml;
+Views\AwaleView.xaml;Views\LocalView.xaml;Views\MainWindow.xaml;Views\MenuView.xaml;Views\Reseau.xaml;Views\Score.xaml;
 
 True
 
