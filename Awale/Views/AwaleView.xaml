@@ -4,7 +4,6 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Awale"
-             xmlns:vm="clr-namespace:Awale.ViewModels"
              mc:Ignorable="d"
              Name="AwaleControl"
              MinHeight="100"
@@ -13,10 +12,8 @@
                        Converter={StaticResource PercentageConverter},
                        ConverterParameter={StaticResource myAwaleDecimal},
                        ElementName=AwaleControl, 
-                       Path=ActualWidth}"
-             DataContext="{DynamicResource ViewModelAwale}">
+                       Path=ActualWidth}">
     <UserControl.Resources>
-        <vm:ViewModelAwale x:Key="ViewModelAwale"/>
         <RadialGradientBrush x:Key="ColorTrou">
             <GradientStop Color="#FF251204" Offset="0.523"/>
             <GradientStop Color="#FF5F2F0F" Offset="1"/>
@@ -46,7 +43,7 @@
             <GradientStop Color="#FF592C0C" Offset="0.56"/>
             <GradientStop Offset="0.55"/>
         </LinearGradientBrush>
-        <SolidColorBrush x:Key="ColorPoi" Color="#FF14B41C"/>
+        
     </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>

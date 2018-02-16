@@ -69,8 +69,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Models\ModelBase.cs" />
     <Compile Include="Utils\DelegateCommand.cs" />
     <Compile Include="Utils\PercentageConverter.cs" />
+    <Compile Include="ViewModels\ViewModelGame.cs" />
     <Compile Include="Views\AwaleView.xaml.cs">
       <DependentUpon>AwaleView.xaml</DependentUpon>
     </Compile>
@@ -83,6 +85,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\GameView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -90,6 +96,9 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\GameView.xaml.cs">
+      <DependentUpon>GameView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>

@@ -30,7 +30,7 @@ namespace Awale.ViewModels
         private DelegateCommand delegateCommand;
         private Game game;
 
-        public ViewModelAwale()
+        public ViewModelAwale(Game game)
         {
             trou1 = 4;
             trou2 = 4;
@@ -45,7 +45,7 @@ namespace Awale.ViewModels
             trou5Adverse = 4;
             trou6Adverse = 4;
             DelegateCommand = new DelegateCommand(o => OnClickTrou(o));
-            game = new Game();
+            this.Game = game;
         }
 
         private void OnClickTrou(object o)
@@ -61,8 +61,8 @@ namespace Awale.ViewModels
             {
                 nameSender = senderAsEllise.Name.Split('_')[0];
             }
-            bool tourJoueur2 = (nameSender.Contains("Adverse") && game.Playeur2.TourDeJeu);
-            bool tourJoueur1 = (!nameSender.Contains("Adverse") && game.Playeur1.TourDeJeu);
+            bool tourJoueur2 = (nameSender.Contains("Adverse") && Game.Playeur2.TourDeJeu);
+            bool tourJoueur1 = (!nameSender.Contains("Adverse") && Game.Playeur1.TourDeJeu);
             if (tourJoueur2 || tourJoueur1)
             {
                 List<PropertyInfo> propertiesInfos = new List<PropertyInfo>(GetType().GetProperties());
@@ -71,7 +71,7 @@ namespace Awale.ViewModels
                 if(nbGraines > 0)
                 {
                     sender.SetValue(this, 0);
-                    string nameDest = game.Next(nameSender);
+                    string nameDest = Game.Next(nameSender);
                     PropertyInfo dest = null;
                     while (nbGraines > 0)
                     {
@@ -84,7 +84,7 @@ namespace Awale.ViewModels
                         }
                         if(nbGraines > 0)
                         {
-                            nameDest = game.Next(nameDest);
+                            nameDest = Game.Next(nameDest);
                         }
                     }
                     int count = 5;
@@ -94,16 +94,23 @@ namespace Awale.ViewModels
                     while (peuRecolterJoueur1||peuRecolterJoueur2 && count>0)
                     {
                         dest.SetValue(this, 0);
-                        game.Playeur1.Recolte += nbGraines;
-                        nameDest = game.Previous(nameDest);
+                        if (tourJoueur1)
+                        {
+                            Game.Playeur1.Recolte += nbGraines;
+                        }
+                        else
+                        {
+                            Game.Playeur2.Recolte += nbGraines;
+                        }
+                        nameDest = Game.Previous(nameDest);
                         dest = propertiesInfos.Find(item => item.Name.Equals(nameDest));
                         count--;
                         nbGraines = (int)dest.GetValue(this);
                         peuRecolterJoueur1 = tourJoueur1 && nameDest.Contains("Adverse") && (nbGraines == 2 || nbGraines == 3);
                         peuRecolterJoueur2 = tourJoueur2 && !nameDest.Contains("Adverse") && (nbGraines == 2 || nbGraines == 3);
                     }
-                    game.Playeur1.TourDeJeu = !game.Playeur1.TourDeJeu;
-                    game.Playeur2.TourDeJeu = !game.Playeur2.TourDeJeu;
+                    Game.Playeur1.TourDeJeu = !Game.Playeur1.TourDeJeu;
+                    Game.Playeur2.TourDeJeu = !Game.Playeur2.TourDeJeu;
                 }
             }
             else
@@ -222,5 +229,6 @@ namespace Awale.ViewModels
             }
         }
         public DelegateCommand DelegateCommand { get => delegateCommand; set => delegateCommand = value; }
+        public Game Game { get => game; set => game = value; }
     }
 }

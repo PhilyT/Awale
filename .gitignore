@@ -2,4 +2,5 @@ Awale/bin/
 .vs/
 Backup/
 Entities/
-Awale/obj/Debug/
+Awale/obj/Debug
+Awale/obj/Release

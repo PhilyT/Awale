@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Awale.Models
 {
-    public class Player : INotifyPropertyChanged
+    public class Player :ModelBase
     {
         private string nom;
         private int id;
@@ -23,16 +23,7 @@ namespace Awale.Models
         public int NbPartie { get => nbPartie; set { nbPartie = value; RaisePropertyChanged("NbPartie"); } }
         public string Ip { get => ip; set => ip = value; }
         public bool TourDeJeu { get => tourDeJeu; set => tourDeJeu = value; }
-        public int Recolte { get => recolte; set => recolte = value; }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        private void RaisePropertyChanged(string propertyName)
-        {
-            if (this.PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-            }
-        }
+        public int Recolte { get => recolte; set { recolte = value; RaisePropertyChanged("Recolte"); } }
 
         public Player() { }
 

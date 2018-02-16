@@ -1,14 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Awale.Models
 {
-    public class Game
+    public class Game :ModelBase
     {
+
         private List<string> trous;
         private Player playeur1;
         private Player playeur2;
@@ -33,7 +35,7 @@ namespace Awale.Models
         }
 
         public Player Playeur1 { get => playeur1; set => playeur1 = value; }
-        public Player Playeur2 { get => playeur2; set => playeur2 = value; }
+        public Player Playeur2 { get => playeur2; set { playeur2 = value; RaisePropertyChanged("Playeur2"); } }
 
         public string Next(string element)
         {

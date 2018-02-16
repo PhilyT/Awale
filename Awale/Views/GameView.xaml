@@ -1,0 +1,21 @@
+﻿<Page x:Class="Awale.Views.GameView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Awale.Views"
+        xmlns:views="clr-namespace:Awale.Views"
+      mc:Ignorable="d" 
+      Title="GameView">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="5*"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+        <Label Content="{Binding Path=Game.Playeur2.Recolte}" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontWeight="Bold" FontSize="24" Foreground="{DynamicResource ColorPoi}"/>
+        <views:AwaleView Grid.Row="1" Game="{Binding DataContext.Game , RelativeSource={RelativeSource FindAncestor,AncestorType=Window}}" HorizontalAlignment="Stretch" Margin="50,0,50,0"/>
+        <Label Grid.Row="2" Content="{Binding Path=Game.Playeur1.Recolte}" HorizontalAlignment="Center" VerticalAlignment="Top" FontWeight="Bold" FontSize="24" Foreground="{DynamicResource ColorPoi}"/>
+    </Grid>
+</Page>
