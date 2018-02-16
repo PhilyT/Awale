@@ -33,7 +33,7 @@ namespace Awale.ViewModels
         public void OnclickLocal(object O)
        
         {
-            LocalView viewLocal = new LocalView();
+            LocalView viewLocal = new LocalView(frame);
             frame.Navigate(viewLocal);
             
 

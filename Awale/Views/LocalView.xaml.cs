@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Awale.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +21,11 @@ namespace Awale.Views
     /// </summary>
     public partial class LocalView : Page
     {
-        public LocalView()
+
+        public LocalView(Frame frame)
         {
             InitializeComponent();
+            DataContext = new ViewModelLocal(frame);
         }
     }
 }

@@ -15,7 +15,7 @@
             <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
         <Label Content="{Binding Path=Game.Playeur2.Recolte}" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontWeight="Bold" FontSize="24" Foreground="{DynamicResource ColorPoi}"/>
-        <views:AwaleView Grid.Row="1" Game="{Binding DataContext.Game , RelativeSource={RelativeSource FindAncestor,AncestorType=Window}}" HorizontalAlignment="Stretch" Margin="50,0,50,0"/>
+        <views:AwaleView Grid.Row="1" Game="{Binding DataContext.Game , RelativeSource={RelativeSource FindAncestor,AncestorType=Page}}" HorizontalAlignment="Stretch" Margin="50,0,50,0"/>
         <Label Grid.Row="2" Content="{Binding Path=Game.Playeur1.Recolte}" HorizontalAlignment="Center" VerticalAlignment="Top" FontWeight="Bold" FontSize="24" Foreground="{DynamicResource ColorPoi}"/>
     </Grid>
 </Page>

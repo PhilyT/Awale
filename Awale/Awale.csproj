@@ -72,6 +72,7 @@
     <Compile Include="Models\ModelBase.cs" />
     <Compile Include="Utils\DelegateCommand.cs" />
     <Compile Include="Utils\PercentageConverter.cs" />
+    <Compile Include="ViewModels\ViewModelLocal.cs" />
     <Compile Include="ViewModels\ViewModelMenu.cs" />
     <Compile Include="ViewModels\ViewModelGame.cs" />
     <Compile Include="Views\AwaleView.xaml.cs">
