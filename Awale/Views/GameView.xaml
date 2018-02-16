@@ -4,18 +4,56 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Awale.Views"
-        xmlns:views="clr-namespace:Awale.Views"
+      xmlns:views="clr-namespace:Awale.Views"
       mc:Ignorable="d" 
+      d:DesignHeight="300" d:DesignWidth="300"
       Title="GameView">
+    <Page.Resources>
+        <Style x:Key="LabelStyle" TargetType="{x:Type Label}">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding TourDeJeu}"  Value="True">
+                    <Setter Property="FontWeight" Value="Bold" />
+                </DataTrigger>
+                <DataTrigger Binding="{Binding TourDeJeu}" Value="False">
+                    <Setter Property="FontWeight" Value="Normal" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+        <TextBlock x:Key="ContentLabel">
+            <TextBlock.Text>
+                <MultiBinding StringFormat="{}{0} : {1}">
+                    <Binding Path="Nom" />
+                    <Binding Path="Recolte" />
+                </MultiBinding>
+            </TextBlock.Text>
+        </TextBlock>
+    </Page.Resources>
 
-    <Grid>
+    <Grid Background="{StaticResource ImageDeFond}">
         <Grid.RowDefinitions>
             <RowDefinition Height="1*"/>
-            <RowDefinition Height="5*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="12*"/>
+            <RowDefinition Height="1*"/>
             <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
-        <Label Content="{Binding Path=Game.Playeur2.Recolte}" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontWeight="Bold" FontSize="24" Foreground="{DynamicResource ColorPoi}"/>
-        <views:AwaleView Grid.Row="1" Game="{Binding DataContext.Game , RelativeSource={RelativeSource FindAncestor,AncestorType=Page}}" HorizontalAlignment="Stretch" Margin="50,0,50,0"/>
-        <Label Grid.Row="2" Content="{Binding Path=Game.Playeur1.Recolte}" HorizontalAlignment="Center" VerticalAlignment="Top" FontWeight="Bold" FontSize="24" Foreground="{DynamicResource ColorPoi}"/>
+        <Label Style="{DynamicResource LabelStyle}" Name="label1" DataContext="{Binding Game.Playeur2}" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Stretch" FontSize="{Binding Converter={StaticResource PercentageConverter},
+                       ConverterParameter={StaticResource myTitleDecimal}, Path=ActualHeight, ElementName=label1, Mode=OneWay}" Foreground="{DynamicResource ColorPoi}" >
+            <Label.Content>
+                <TextBlock>
+                    <TextBlock.Text>
+                        <MultiBinding StringFormat="{}{0} : {1}">
+                            <Binding Path="Nom" />
+                            <Binding Path="Recolte" />
+                        </MultiBinding>
+                    </TextBlock.Text>
+                </TextBlock>
+            </Label.Content>
+        </Label>
+
+        <views:AwaleView Grid.Row="2" Game="{Binding DataContext.Game, RelativeSource={RelativeSource FindAncestor,AncestorType=Page}}" Margin="50,0,50,0"/>
+
+        <Label Style="{DynamicResource LabelStyle}" Name="label2" DataContext="{Binding Game.Playeur1}" Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Stretch" FontSize="{Binding Converter={StaticResource PercentageConverter},
+                       ConverterParameter={StaticResource myTitleDecimal}, Path=ActualHeight, ElementName=label2, Mode=OneWay}" Foreground="{DynamicResource ColorPoi}" Content="{DynamicResource ContentLabel}"/>
     </Grid>
 </Page>

@@ -22,13 +22,14 @@ namespace Awale.Models
         public int NbVictoire { get => nbVictoire; set { nbVictoire = value; RaisePropertyChanged("NbVictoire"); } }
         public int NbPartie { get => nbPartie; set { nbPartie = value; RaisePropertyChanged("NbPartie"); } }
         public string Ip { get => ip; set => ip = value; }
-        public bool TourDeJeu { get => tourDeJeu; set => tourDeJeu = value; }
+        public bool TourDeJeu { get => tourDeJeu; set { tourDeJeu = value; ; RaisePropertyChanged("TourDeJeu"); } }
         public int Recolte { get => recolte; set { recolte = value; RaisePropertyChanged("Recolte"); } }
 
         public Player() { }
 
-        public Player(bool tourDeJeu)
+        public Player(string nom,bool tourDeJeu)
         {
+            Nom = nom;
             TourDeJeu = tourDeJeu;
         }
 

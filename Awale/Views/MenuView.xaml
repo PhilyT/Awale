@@ -7,15 +7,8 @@
       mc:Ignorable="d"
       d:DesignHeight="400" d:DesignWidth="500"
       Title="Page1">
-    <Page.Resources>
-        <ControlTemplate x:Key="bg" TargetType="{x:Type Button}">
-            <Border CornerRadius="6" BorderBrush="{TemplateBinding Property=Background}">
-                <ContentPresenter></ContentPresenter>
-            </Border>
-        </ControlTemplate>
-    </Page.Resources>
 
-    <Grid>
+    <Grid Background="{DynamicResource ImageDeFond}">
         <Grid.RowDefinitions>
             <RowDefinition></RowDefinition>
             <RowDefinition></RowDefinition>
@@ -31,10 +24,11 @@
             <ColumnDefinition></ColumnDefinition>
             <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
-        <Rectangle Grid.RowSpan="6"  Grid.ColumnSpan="5" Fill="Black"/>
-        <Image Grid.RowSpan="6"  Grid.ColumnSpan="5" Source="../images/copert022.jpg" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+
         <Button  Command="{Binding DelegateLocal}" Grid.Row="2" Grid.Column="1" Content="Local" Background="Red"/>
         <Button  Command="{Binding DelgateReseau}" Grid.Row="2" Grid.Column="2" Content="Réseau" Background="Orange"/>
         <Button  Command="{Binding DelegateScore}" Grid.Row="2" Grid.Column="3" Content="Score" Background="Red"/>
-   </Grid>
+        <Label x:Name="label" Grid.ColumnSpan="3" Content="Awale" Grid.Column="1" HorizontalAlignment="Center"   Grid.Row="1" VerticalAlignment="Stretch" Foreground="{DynamicResource ColorPoi}" FontFamily="Segoe Print" FontSize="{Binding Converter={StaticResource PercentageConverter},
+                       ConverterParameter={StaticResource myTitleDecimal}, Path=ActualHeight, ElementName=label, Mode=OneWay}" />
+    </Grid>
 </Page>

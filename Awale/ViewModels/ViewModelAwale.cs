@@ -112,12 +112,7 @@ namespace Awale.ViewModels
                     Game.Playeur1.TourDeJeu = !Game.Playeur1.TourDeJeu;
                     Game.Playeur2.TourDeJeu = !Game.Playeur2.TourDeJeu;
                 }
-            }
-            else
-            {
-                MessageBox.Show("Ce n'est pas votre tour !", "Action Invalide", MessageBoxButton.OK);
-            }
-            
+            }            
         }
 
         public int Trou1Adverse

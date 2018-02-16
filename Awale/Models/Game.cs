@@ -30,11 +30,11 @@ namespace Awale.Models
             trous.Add("Trou4Adverse");
             trous.Add("Trou5Adverse");
             trous.Add("Trou6Adverse");
-            Playeur1 = new Player(true);
-            Playeur2 = new Player(false);
+            Playeur1 = new Player("Player 1",true);
+            Playeur2 = new Player("Player 2",false);
         }
 
-        public Player Playeur1 { get => playeur1; set => playeur1 = value; }
+        public Player Playeur1 { get => playeur1; set { playeur1 = value; RaisePropertyChanged("Playeur1"); } }
         public Player Playeur2 { get => playeur2; set { playeur2 = value; RaisePropertyChanged("Playeur2"); } }
 
         public string Next(string element)
