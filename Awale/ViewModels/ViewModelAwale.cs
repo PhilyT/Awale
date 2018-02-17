@@ -30,6 +30,7 @@ namespace Awale.ViewModels
         private DelegateCommand delegateCommand;
         private Game game;
 
+
         public ViewModelAwale(Game game)
         {
             trou1 = 4;
@@ -45,7 +46,8 @@ namespace Awale.ViewModels
             trou5Adverse = 4;
             trou6Adverse = 4;
             DelegateCommand = new DelegateCommand(o => OnClickTrou(o));
-            this.Game = game;
+            Game = game;
+
         }
 
         private void OnClickTrou(object o)
@@ -109,8 +111,27 @@ namespace Awale.ViewModels
                         peuRecolterJoueur1 = tourJoueur1 && nameDest.Contains("Adverse") && (nbGraines == 2 || nbGraines == 3);
                         peuRecolterJoueur2 = tourJoueur2 && !nameDest.Contains("Adverse") && (nbGraines == 2 || nbGraines == 3);
                     }
-                    Game.Playeur1.TourDeJeu = !Game.Playeur1.TourDeJeu;
-                    Game.Playeur2.TourDeJeu = !Game.Playeur2.TourDeJeu;
+                    if(Game.Playeur1.Recolte > 24)
+                    {
+                        Game.Playeur1.TourDeJeu = false;
+                        Game.Playeur2.TourDeJeu = false;
+                        Game.Playeur1.NbVictoire++;
+                        Game.Victory = "Visible";
+                        Game.Winner = Game.Playeur1.Nom;
+                    }
+                    else if(Game.Playeur2.Recolte > 24)
+                    {
+                        Game.Playeur1.TourDeJeu = false;
+                        Game.Playeur2.TourDeJeu = false;
+                        Game.Playeur2.NbVictoire++;
+                        Game.Victory = "Visible";
+                        Game.Winner = Game.Playeur2.Nom;
+                    }
+                    else
+                    {
+                        Game.Playeur1.TourDeJeu = !Game.Playeur1.TourDeJeu;
+                        Game.Playeur2.TourDeJeu = !Game.Playeur2.TourDeJeu;
+                    }
                 }
             }            
         }
@@ -224,6 +245,12 @@ namespace Awale.ViewModels
             }
         }
         public DelegateCommand DelegateCommand { get => delegateCommand; set => delegateCommand = value; }
-        public Game Game { get => game; set => game = value; }
+        public Game Game { get => game; set
+            {
+                game = value;
+                RaisePropertyChanged("Game");
+            }
+        }
+        
     }
 }

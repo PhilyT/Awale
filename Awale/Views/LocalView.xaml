@@ -8,10 +8,24 @@
       d:DesignHeight="300" d:DesignWidth="300"
       Title="LocalView">
 
-    <Grid>
-        <Button Command="{Binding OnePlayer}" Content="Player Vs IA" HorizontalAlignment="Left" Height="29" Margin="92,84,0,0" VerticalAlignment="Top" Width="113"/>
-        <Button Command="{Binding TwoPlayer}" Content="2 Player" HorizontalAlignment="Left" Height="25" Margin="92,138,0,0" VerticalAlignment="Top" Width="113"/>
-        <Button Command="{Binding Retour}" Content="Retour" HorizontalAlignment="Left" Height="23" Margin="92,189,0,0" VerticalAlignment="Top" Width="113"/>
+    <Grid Background="{DynamicResource ImageDeFond}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="2*"/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition Height="2*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="2*"/>
+        </Grid.ColumnDefinitions>
+        <Button Command="{Binding OnePlayer}" Background="Red" Content="Player Vs IA" HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" Grid.Column="1" Grid.Row="1" Style="{DynamicResource ButtonStyle1}"/>
+        <Button Command="{Binding TwoPlayer}" Background="Orange" Content="2 Player" HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" Grid.Column="1" Grid.Row="3"  Style="{DynamicResource ButtonStyle1}"/>
+        <Button Command="{Binding Retour}" Background="Red" Content="Retour" HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" Grid.Row="5" Grid.Column="1"  Style="{DynamicResource ButtonStyle1}"/>
 
     </Grid>
 </Page>

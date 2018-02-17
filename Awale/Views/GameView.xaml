@@ -52,7 +52,12 @@
         </Label>
 
         <views:AwaleView Grid.Row="2" Game="{Binding DataContext.Game, RelativeSource={RelativeSource FindAncestor,AncestorType=Page}}" Margin="50,0,50,0"/>
-
+        <StackPanel Margin="50" VerticalAlignment="Stretch" HorizontalAlignment="Center" Orientation="Horizontal" Grid.Row="2" Visibility="{Binding Game.Victory}">
+            <Label  Name="label3" VerticalAlignment="Stretch" FontSize="{Binding Converter={StaticResource PercentageConverter},
+                       ConverterParameter={StaticResource myVictoryDecimal}, Path=ActualHeight, ElementName=label3, Mode=OneWay}" Foreground="{DynamicResource ColorPoi}" Content="Victoire de"/>
+            <Label  Name="label4" VerticalAlignment="Stretch" FontSize="{Binding Converter={StaticResource PercentageConverter},
+                       ConverterParameter={StaticResource myVictoryDecimal}, Path=ActualHeight, ElementName=label4, Mode=OneWay}" Foreground="{DynamicResource ColorPoi}" Content="{Binding Game.Winner}"/>
+        </StackPanel>
         <Label Style="{DynamicResource LabelStyle}" Name="label2" DataContext="{Binding Game.Playeur1}" Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Stretch" FontSize="{Binding Converter={StaticResource PercentageConverter},
                        ConverterParameter={StaticResource myTitleDecimal}, Path=ActualHeight, ElementName=label2, Mode=OneWay}" Foreground="{DynamicResource ColorPoi}" Content="{DynamicResource ContentLabel}"/>
     </Grid>

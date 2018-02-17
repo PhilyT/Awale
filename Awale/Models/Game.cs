@@ -14,6 +14,8 @@ namespace Awale.Models
         private List<string> trous;
         private Player playeur1;
         private Player playeur2;
+        private string winner;
+        private string vicory;
 
         public Game()
         {
@@ -32,6 +34,9 @@ namespace Awale.Models
             trous.Add("Trou6Adverse");
             Playeur1 = new Player("Player 1",true);
             Playeur2 = new Player("Player 2",false);
+            Playeur1.NbPartie++;
+            Playeur2.NbPartie++;
+            vicory = "Hidden";
         }
 
         public Player Playeur1 { get => playeur1; set { playeur1 = value; RaisePropertyChanged("Playeur1"); } }
@@ -60,6 +65,22 @@ namespace Awale.Models
             else
             {
                 return trous.ElementAt(index);
+            }
+        }
+        public string Winner
+        {
+            get => winner; set
+            {
+                winner = value;
+                RaisePropertyChanged("Winner");
+            }
+        }
+        public string Victory
+        {
+            get => vicory; set
+            {
+                vicory = value;
+                RaisePropertyChanged("Victory");
             }
         }
     }

@@ -25,9 +25,9 @@
             <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
 
-        <Button  Command="{Binding DelegateLocal}" Grid.Row="2" Grid.Column="1" Content="Local" Background="Red"/>
-        <Button  Command="{Binding DelgateReseau}" Grid.Row="2" Grid.Column="2" Content="Réseau" Background="Orange"/>
-        <Button  Command="{Binding DelegateScore}" Grid.Row="2" Grid.Column="3" Content="Score" Background="Red"/>
+        <Button  Command="{Binding DelegateLocal}" Grid.Row="2" Grid.Column="1" Content="Local" Background="Red"  Style="{DynamicResource ButtonStyle1}"/>
+        <Button  Command="{Binding DelgateReseau}" Grid.Row="2" Grid.Column="2" Content="Réseau" Background="Orange"  Style="{DynamicResource ButtonStyle1}"/>
+        <Button  Command="{Binding DelegateScore}" Grid.Row="2" Grid.Column="3" Content="Score" Background="Red"  Style="{DynamicResource ButtonStyle1}"/>
         <Label x:Name="label" Grid.ColumnSpan="3" Content="Awale" Grid.Column="1" HorizontalAlignment="Center"   Grid.Row="1" VerticalAlignment="Stretch" Foreground="{DynamicResource ColorPoi}" FontFamily="Segoe Print" FontSize="{Binding Converter={StaticResource PercentageConverter},
                        ConverterParameter={StaticResource myTitleDecimal}, Path=ActualHeight, ElementName=label, Mode=OneWay}" />
     </Grid>
