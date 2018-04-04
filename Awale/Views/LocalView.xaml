@@ -23,9 +23,12 @@
             <ColumnDefinition/>
             <ColumnDefinition Width="2*"/>
         </Grid.ColumnDefinitions>
-        <Button Command="{Binding OnePlayer}" Background="Red" Content="IA" HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" Grid.Column="1" Grid.Row="1" Style="{DynamicResource ButtonStyle1}"/>
-        <Button Command="{Binding TwoPlayer}" Background="Orange" Content="2 Player" HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" Grid.Column="1" Grid.Row="3"  Style="{DynamicResource ButtonStyle1}"/>
-        <Button Command="{Binding Retour}" Background="Red" Content="Retour" HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" Grid.Row="5" Grid.Column="1"  Style="{DynamicResource ButtonStyle1}"/>
+        <Button Name="ia" FontSize="{Binding Converter={StaticResource PercentageConverter},
+                       ConverterParameter={StaticResource myTitleDecimal}, Path=ActualHeight, ElementName=ia, Mode=OneWay}" Foreground="{StaticResource ColorPoi}" Command="{Binding OnePlayer}" Background="Red" Content="IA" HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" Grid.Column="1" Grid.Row="1" Style="{DynamicResource ButtonStyle1}"/>
+        <Button Name="player" FontSize="{Binding Converter={StaticResource PercentageConverter},
+                       ConverterParameter={StaticResource myTitleDecimal}, Path=ActualHeight, ElementName=player, Mode=OneWay}" Foreground="{StaticResource ColorPoi}" Command="{Binding TwoPlayer}" Background="Orange" Content="2 Player" HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" Grid.Column="1" Grid.Row="3"  Style="{DynamicResource ButtonStyle1}"/>
+        <Button Name="retour" FontSize="{Binding Converter={StaticResource PercentageConverter},
+                       ConverterParameter={StaticResource myTitleDecimal}, Path=ActualHeight, ElementName=retour, Mode=OneWay}" Foreground="{StaticResource ColorPoi}" Command="{Binding Retour}" Background="Red" Content="Retour" HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" Grid.Row="5" Grid.Column="1"  Style="{DynamicResource ButtonStyle1}"/>
 
     </Grid>
 </Page>

@@ -7,8 +7,52 @@
       mc:Ignorable="d" 
       d:DesignHeight="300" d:DesignWidth="300"
       Title="Score">
-
-    <Grid>
-        
+    <Page.Resources>
+        <ItemContainerTemplate x:Key="TemplateItems">
+            <Grid Width="{Binding Converter={StaticResource PercentageConverter},
+                       ConverterParameter={StaticResource listConverter}, Path=ActualWidth, ElementName=liste, Mode=OneWay}" HorizontalAlignment="Stretch">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+                <Label Name="label4" Foreground="{StaticResource ColorPoi}" FontSize="{Binding Converter={StaticResource PercentageConverter},
+                       ConverterParameter={StaticResource myTitleDecimal}, Path=ActualHeight, ElementName=label1, Mode=OneWay}" Content="{Binding Nom}" Grid.Column="0"  VerticalAlignment="Stretch" HorizontalAlignment="Right"/>
+                <Label Name="label5" Foreground="{StaticResource ColorPoi}" FontSize="{Binding Converter={StaticResource PercentageConverter},
+                       ConverterParameter={StaticResource myTitleDecimal}, Path=ActualHeight, ElementName=label2, Mode=OneWay}" Content="{Binding NbVictoire}" Grid.Column="1"  VerticalAlignment="Stretch" HorizontalAlignment="Right"/>
+                <Label Name="label6" Foreground="{StaticResource ColorPoi}" FontSize="{Binding Converter={StaticResource PercentageConverter},
+                       ConverterParameter={StaticResource myTitleDecimal}, Path=ActualHeight, ElementName=label3, Mode=OneWay}" Content="{Binding NbPartie}" Grid.Column="2"  VerticalAlignment="Stretch" HorizontalAlignment="Right"/>
+            </Grid>
+        </ItemContainerTemplate>
+        <ItemsPanelTemplate x:Key="TemplateListeBox">
+            <StackPanel Orientation="Vertical" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+        </ItemsPanelTemplate>
+    </Page.Resources>
+    <Grid Background="{StaticResource IamgeScore}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="3*"/>
+            <ColumnDefinition Width="3*"/>
+            <ColumnDefinition Width="3*"/>
+            <ColumnDefinition Width="1*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="6*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+        <Label Name="label1" Foreground="{StaticResource ColorPoi}" FontSize="{Binding Converter={StaticResource PercentageConverter},
+                       ConverterParameter={StaticResource myTitleDecimal}, Path=ActualHeight, ElementName=label1, Mode=OneWay}" Content="Nom" Grid.Column="1" Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Right"/>
+        <Label Name="label2" Foreground="{StaticResource ColorPoi}" FontSize="{Binding Converter={StaticResource PercentageConverter},
+                       ConverterParameter={StaticResource myTitleDecimal}, Path=ActualHeight, ElementName=label2, Mode=OneWay}" Content="Nombre de victoire" Grid.Column="2" Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Right"/>
+        <Label Name="label3" Foreground="{StaticResource ColorPoi}" FontSize="{Binding Converter={StaticResource PercentageConverter},
+                       ConverterParameter={StaticResource myTitleDecimal}, Path=ActualHeight, ElementName=label3, Mode=OneWay}" Content="Nombre de partie" Grid.Column="3" Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Right"/>
+        <ListBox ScrollViewer.HorizontalScrollBarVisibility="Hidden" BorderBrush="Transparent" Name="liste" Background="Transparent" Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="3" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"
+                 ItemTemplate="{DynamicResource TemplateItems}" ItemsSource="{Binding Joueurs}"/>
+        <Button Grid.Column="1" Name="retour" FontSize="{Binding Converter={StaticResource PercentageConverter},
+                       ConverterParameter={StaticResource myTitleDecimal}, Path=ActualHeight, ElementName=retour, Mode=OneWay}" Foreground="{StaticResource ColorPoi}" Grid.Row="4" Margin="5" Background="Red"  Content="Retour" Command="{Binding Retour}" Style="{DynamicResource ButtonStyle1}"/>
     </Grid>
 </Page>

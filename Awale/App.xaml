@@ -10,10 +10,12 @@
         <sys:Double x:Key="myAwaleDecimal">0.333</sys:Double>
         <sys:Double x:Key="myTitleDecimal">0.45</sys:Double>
         <sys:Double x:Key="myBoardDecimal">0.778</sys:Double>
+        <sys:Double x:Key="listConverter">0.99</sys:Double>
         <sys:Double x:Key="myBoardRightDecimal">0.222</sys:Double>
         <sys:Double x:Key="myVictoryDecimal">0.1</sys:Double>
         <SolidColorBrush x:Key="ColorPoi" Color="#FF14B41C"/>
         <ImageBrush x:Key="ImageDeFond" ImageSource="/Awale;component/Images/copert022.jpg" Stretch="UniformToFill"/>
+        <ImageBrush x:Key="IamgeScore" ImageSource="/Awale;component/Images/noel_afrique.jpg" Stretch="UniformToFill"/>
         <Style x:Key="FocusVisual">
             <Setter Property="Control.Template">
                 <Setter.Value>
