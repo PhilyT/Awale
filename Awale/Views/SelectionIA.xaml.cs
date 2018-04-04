@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Awale.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,13 +17,14 @@ using System.Windows.Shapes;
 namespace Awale.Views
 {
     /// <summary>
-    /// Logique d'interaction pour Score.xaml
+    /// Logique d'interaction pour SelectionIA.xaml
     /// </summary>
-    public partial class Score : Page
+    public partial class SelectionIA : Page
     {
-        public Score()
+        public SelectionIA(Frame frame)
         {
             InitializeComponent();
+            DataContext = new ViewModelSelectionIA(frame);
         }
     }
 }

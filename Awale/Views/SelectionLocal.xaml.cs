@@ -1,5 +1,4 @@
-﻿using Awale.Models;
-using Awale.ViewModels;
+﻿using Awale.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,14 +17,14 @@ using System.Windows.Shapes;
 namespace Awale.Views
 {
     /// <summary>
-    /// Logique d'interaction pour GameView.xaml
+    /// Logique d'interaction pour SelectionLocal.xaml
     /// </summary>
-    public partial class GameView : Page
+    public partial class SelectionLocal : Page
     {
-        public GameView(Frame frame, Player player1, Player player2)
+        public SelectionLocal(Frame frame)
         {
             InitializeComponent();
-            DataContext = new ViewModelGame(frame, player1, player2);
+            DataContext = new ViewModelSelectionLocal(frame);
         }
     }
 }

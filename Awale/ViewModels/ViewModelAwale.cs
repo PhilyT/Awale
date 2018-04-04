@@ -10,6 +10,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Shapes;
+using System.Collections.ObjectModel;
 
 namespace Awale.ViewModels
 {
@@ -30,9 +31,14 @@ namespace Awale.ViewModels
         private DelegateCommand delegateCommand;
         private Game game;
 
+        private Sauvegarde sauvegarde;
+        private ObservableCollection<Player> joueurs;
+
 
         public ViewModelAwale(Game game)
         {
+            sauvegarde = new Sauvegarde();
+            joueurs = sauvegarde.ReadXML();
             trou1 = 4;
             trou2 = 4;
             trou3 = 4;
@@ -115,7 +121,8 @@ namespace Awale.ViewModels
                     {
                         Game.Playeur1.TourDeJeu = false;
                         Game.Playeur2.TourDeJeu = false;
-                        Game.Playeur1.NbVictoire++;
+                        joueurs.Where(joueur => joueur.Nom.Equals(Game.Playeur1.Nom)).First().NbVictoire++;
+                        sauvegarde.WriteXML(joueurs);
                         Game.Victory = "Visible";
                         Game.Winner = Game.Playeur1.Nom;
                     }
@@ -123,9 +130,16 @@ namespace Awale.ViewModels
                     {
                         Game.Playeur1.TourDeJeu = false;
                         Game.Playeur2.TourDeJeu = false;
-                        Game.Playeur2.NbVictoire++;
+                        joueurs.Where(joueur => joueur.Nom.Equals(Game.Playeur2.Nom)).First().NbVictoire++;
+                        sauvegarde.WriteXML(joueurs);
                         Game.Victory = "Visible";
                         Game.Winner = Game.Playeur2.Nom;
+                    }
+                    else if(Game.Playeur1.Recolte ==24 && Game.Playeur2.Recolte == 24)
+                    {
+                        Game.Playeur1.TourDeJeu = false;
+                        Game.Playeur2.TourDeJeu = false;
+                        Game.Egualite = "Visible";
                     }
                     else
                     {

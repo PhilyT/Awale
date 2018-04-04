@@ -21,9 +21,7 @@ namespace Awale.ViewModels
             DelegateLocal = new DelegateCommand(o => OnclickLocal(o));
             DelegateReseau = new DelegateCommand(o => OnclickReseau(o));
             DelegateScore = new DelegateCommand(o => OnclickScore(o));
-            this.frame = frame;
-             
-            
+            this.frame = frame;   
         }
 
         public DelegateCommand DelegateLocal { get => delegateLocal; set => delegateLocal = value; }
@@ -35,17 +33,17 @@ namespace Awale.ViewModels
         {
             LocalView viewLocal = new LocalView(frame);
             frame.Navigate(viewLocal);
-            
-
-
         }
+
         public void OnclickReseau(object O)
         {
-
+            SelectionReseau viewSelectionReseau = new SelectionReseau(frame);
+            frame.Navigate(viewSelectionReseau);
         }
         public void OnclickScore(object O)
         {
-
+            ScoreView viewScore = new ScoreView(frame);
+            frame.Navigate(viewScore);
         }
     }
 }

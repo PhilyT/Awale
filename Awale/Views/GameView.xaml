@@ -28,16 +28,24 @@
             </TextBlock.Text>
         </TextBlock>
     </Page.Resources>
-
     <Grid Background="{StaticResource ImageDeFond}">
         <Grid.RowDefinitions>
             <RowDefinition Height="1*"/>
             <RowDefinition Height="1*"/>
-            <RowDefinition Height="12*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="10*"/>
+            <RowDefinition Height="1*"/>
             <RowDefinition Height="1*"/>
             <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
-        <Label Style="{DynamicResource LabelStyle}" Name="label1" DataContext="{Binding Game.Playeur2}" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Stretch" FontSize="{Binding Converter={StaticResource PercentageConverter},
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="8*"/>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="1*"/>
+        </Grid.ColumnDefinitions>
+        <Label Style="{DynamicResource LabelStyle}" Name="label1" DataContext="{Binding Game.Playeur2}" Grid.Column="2" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Stretch" FontSize="{Binding Converter={StaticResource PercentageConverter},
                        ConverterParameter={StaticResource myTitleDecimal}, Path=ActualHeight, ElementName=label1, Mode=OneWay}" Foreground="{DynamicResource ColorPoi}" >
             <Label.Content>
                 <TextBlock>
@@ -51,14 +59,21 @@
             </Label.Content>
         </Label>
 
-        <views:AwaleView Grid.Row="2" Game="{Binding DataContext.Game, RelativeSource={RelativeSource FindAncestor,AncestorType=Page}}" Margin="50,0,50,0"/>
-        <StackPanel Margin="50" VerticalAlignment="Stretch" HorizontalAlignment="Center" Orientation="Horizontal" Grid.Row="2" Visibility="{Binding Game.Victory}">
+        <views:AwaleView Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="3" Game="{Binding DataContext.Game, RelativeSource={RelativeSource FindAncestor,AncestorType=Page}}" />
+        <StackPanel Grid.Column="0" Grid.ColumnSpan="5" Margin="50" VerticalAlignment="Stretch" HorizontalAlignment="Center" Orientation="Horizontal" Grid.Row="3" Visibility="{Binding Game.Victory}">
             <Label  Name="label3" VerticalAlignment="Stretch" FontSize="{Binding Converter={StaticResource PercentageConverter},
                        ConverterParameter={StaticResource myVictoryDecimal}, Path=ActualHeight, ElementName=label3, Mode=OneWay}" Foreground="{DynamicResource ColorPoi}" Content="Victoire de"/>
             <Label  Name="label4" VerticalAlignment="Stretch" FontSize="{Binding Converter={StaticResource PercentageConverter},
                        ConverterParameter={StaticResource myVictoryDecimal}, Path=ActualHeight, ElementName=label4, Mode=OneWay}" Foreground="{DynamicResource ColorPoi}" Content="{Binding Game.Winner}"/>
         </StackPanel>
-        <Label Style="{DynamicResource LabelStyle}" Name="label2" DataContext="{Binding Game.Playeur1}" Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Stretch" FontSize="{Binding Converter={StaticResource PercentageConverter},
+        <StackPanel Grid.Column="0" Grid.ColumnSpan="5" Margin="50" VerticalAlignment="Stretch" HorizontalAlignment="Center" Orientation="Horizontal" Grid.Row="3" Visibility="{Binding Game.Egualite}">
+            <Label  Name="label5" VerticalAlignment="Stretch" FontSize="{Binding Converter={StaticResource PercentageConverter},
+                       ConverterParameter={StaticResource myVictoryDecimal}, Path=ActualHeight, ElementName=label5, Mode=OneWay}" Foreground="{DynamicResource ColorPoi}" Content="Egualité !"/>
+        </StackPanel>
+        <Label Style="{DynamicResource LabelStyle}" Name="label2" DataContext="{Binding Game.Playeur1}" Grid.Column="2" Grid.Row="4" HorizontalAlignment="Center" VerticalAlignment="Stretch" FontSize="{Binding Converter={StaticResource PercentageConverter},
                        ConverterParameter={StaticResource myTitleDecimal}, Path=ActualHeight, ElementName=label2, Mode=OneWay}" Foreground="{DynamicResource ColorPoi}" Content="{DynamicResource ContentLabel}"/>
+        <Button Name="retour" Grid.Column="1" Grid.Row="5" Style="{StaticResource ButtonStyle1}" FontSize="{Binding Converter={StaticResource PercentageConverter},
+                       ConverterParameter={StaticResource myTitleDecimal}, Path=ActualHeight, ElementName=retour, Mode=OneWay}" Background="Red" Content="Retour"
+                Command="{Binding DelegateCommand}"/>
     </Grid>
 </Page>

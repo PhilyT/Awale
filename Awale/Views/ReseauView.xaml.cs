@@ -1,6 +1,4 @@
-﻿using Awale.Models;
-using Awale.ViewModels;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,18 +12,19 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Awale.ViewModels;
 
 namespace Awale.Views
 {
     /// <summary>
-    /// Logique d'interaction pour GameView.xaml
+    /// Logique d'interaction pour Reseau.xaml
     /// </summary>
-    public partial class GameView : Page
+    public partial class ReseauView : Page
     {
-        public GameView(Frame frame, Player player1, Player player2)
+        public ReseauView(Frame frame)
         {
             InitializeComponent();
-            DataContext = new ViewModelGame(frame, player1, player2);
+            DataContext = new ViewModelReseau(frame);
         }
     }
 }

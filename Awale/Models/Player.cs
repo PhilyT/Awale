@@ -27,10 +27,22 @@ namespace Awale.Models
 
         public Player() { }
 
+        public Player(string nom)
+        {
+            Nom = nom;
+            NbPartie = 0;
+            NbVictoire = 0;
+        }
+
         public Player(string nom,bool tourDeJeu)
         {
             Nom = nom;
             TourDeJeu = tourDeJeu;
+        }
+
+        public override string ToString()
+        {
+            return Nom;
         }
 
     }

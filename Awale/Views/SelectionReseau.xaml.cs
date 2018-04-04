@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Awale.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,13 +17,14 @@ using System.Windows.Shapes;
 namespace Awale.Views
 {
     /// <summary>
-    /// Logique d'interaction pour Reseau.xaml
+    /// Logique d'interaction pour SelectionReseau.xaml
     /// </summary>
-    public partial class Reseau : Page
+    public partial class SelectionReseau : Page
     {
-        public Reseau()
+        public SelectionReseau(Frame frame)
         {
             InitializeComponent();
+            DataContext = new ViewModelSelectionReseau(frame);
         }
     }
 }

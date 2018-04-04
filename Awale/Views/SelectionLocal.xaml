@@ -1,0 +1,48 @@
+﻿<Page x:Class="Awale.Views.SelectionLocal"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Awale.Views"
+      mc:Ignorable="d" 
+      d:DesignHeight="300" d:DesignWidth="300"
+      Title="SelectionLocal">
+
+    <Grid Background="{StaticResource ImageDeFond}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="1*"/>
+        </Grid.ColumnDefinitions>
+        <Label Name="label1" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Stretch" FontSize="{Binding Converter={StaticResource PercentageConverter},
+                       ConverterParameter={StaticResource myAwaleDecimal}, Path=ActualHeight, ElementName=label1, Mode=OneWay}" Foreground="{DynamicResource ColorPoi}" Content="Nouveau Joueur :"/>
+        <StackPanel Orientation="Vertical" Grid.Column="3" Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+            <TextBox VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Text="{Binding NouveauJoueur, UpdateSourceTrigger=PropertyChanged}"/>
+            <Label Name="label4" HorizontalAlignment="Right" Content="Ce nom existe déjà !" Visibility="{Binding Existe}" Foreground="Red" VerticalAlignment="Stretch" FontSize="{Binding Converter={StaticResource PercentageConverter},
+                       ConverterParameter={StaticResource myTitleDecimal}, Path=ActualHeight, ElementName=label4, Mode=OneWay}" />
+        </StackPanel>
+        <Button Margin="5" Command="{Binding Ajouter}" IsEnabled="{Binding ActiveAjout}" Background="Yellow" Content="Ajouter" HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" Grid.Row="2" Grid.Column="3"  Style="{DynamicResource ButtonStyle1}"/>
+        <Label Name="label2" Grid.Column="1" Grid.Row="4" HorizontalAlignment="Right" VerticalAlignment="Stretch" FontSize="{Binding Converter={StaticResource PercentageConverter},
+                       ConverterParameter={StaticResource myAwaleDecimal}, Path=ActualHeight, ElementName=label2, Mode=OneWay}" Foreground="{DynamicResource ColorPoi}" Content="Joueur 1 :"/>
+        <ComboBox Grid.Column="3" Grid.Row="4" ItemsSource="{Binding Selection1}" SelectedItem="{Binding Player1}"/>
+        <Label Name="label3" Grid.Column="1" Grid.Row="6" HorizontalAlignment="Right" VerticalAlignment="Stretch" FontSize="{Binding Converter={StaticResource PercentageConverter},
+                       ConverterParameter={StaticResource myAwaleDecimal}, Path=ActualHeight, ElementName=label3, Mode=OneWay}" Foreground="{DynamicResource ColorPoi}" Content="Joueur 2 :"/>
+        <Button Margin="5" Command="{Binding Retour}" Background="Red" Content="Retour" HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" Grid.Row="8" Grid.Column="1"  Style="{DynamicResource ButtonStyle1}"/>
+        <ComboBox Grid.Column="3" Grid.Row="6" ItemsSource="{Binding Selection2}" SelectedItem="{Binding Player2}"/>
+        <Button Margin="5" Command="{Binding Commencer}" Background="Yellow" Content="Commencer" HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" Grid.Row="8" Grid.Column="3"  Style="{DynamicResource ButtonStyle1}"/>
+    </Grid>
+</Page>

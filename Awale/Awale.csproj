@@ -48,6 +48,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>icone.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -70,11 +73,17 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Models\ModelBase.cs" />
+    <Compile Include="Models\Sauvegarde.cs" />
     <Compile Include="Utils\DelegateCommand.cs" />
     <Compile Include="Utils\PercentageConverter.cs" />
     <Compile Include="ViewModels\ViewModelLocal.cs" />
     <Compile Include="ViewModels\ViewModelMenu.cs" />
     <Compile Include="ViewModels\ViewModelGame.cs" />
+    <Compile Include="ViewModels\ViewModelReseau.cs" />
+    <Compile Include="ViewModels\ViewModelScore.cs" />
+    <Compile Include="ViewModels\ViewModelSelectionIA.cs" />
+    <Compile Include="ViewModels\ViewModelSelectionLocal.cs" />
+    <Compile Include="ViewModels\ViewModelSelectionReseau.cs" />
     <Compile Include="Views\AwaleView.xaml.cs">
       <DependentUpon>AwaleView.xaml</DependentUpon>
     </Compile>
@@ -89,11 +98,20 @@
     <Compile Include="Views\MenuView.xaml.cs">
       <DependentUpon>MenuView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Reseau.xaml.cs">
-      <DependentUpon>Reseau.xaml</DependentUpon>
+    <Compile Include="Views\ReseauView.xaml.cs">
+      <DependentUpon>ReseauView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Score.xaml.cs">
-      <DependentUpon>Score.xaml</DependentUpon>
+    <Compile Include="Views\ScoreView.xaml.cs">
+      <DependentUpon>ScoreView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SelectionIA.xaml.cs">
+      <DependentUpon>SelectionIA.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SelectionLocal.xaml.cs">
+      <DependentUpon>SelectionLocal.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SelectionReseau.xaml.cs">
+      <DependentUpon>SelectionReseau.xaml</DependentUpon>
     </Compile>
     <Page Include="Views\AwaleView.xaml">
       <SubType>Designer</SubType>
@@ -126,11 +144,23 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Reseau.xaml">
+    <Page Include="Views\ReseauView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Score.xaml">
+    <Page Include="Views\ScoreView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\SelectionIA.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\SelectionLocal.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\SelectionReseau.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -176,6 +206,9 @@
   <ItemGroup>
     <Resource Include="Images\copert022.jpg" />
     <Resource Include="Images\noel_afrique.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="icone.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

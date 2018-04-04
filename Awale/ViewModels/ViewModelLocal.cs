@@ -27,17 +27,19 @@ namespace Awale.ViewModels
         private void OnClickRetour(object o)
         {
             MenuView menu = new MenuView(frame);
-            frame.Navigate(frame);
+            frame.Navigate(menu);
         }
 
         private void OnClickTwoPlayer(object o)
         {
-            GameView game = new GameView();
-            frame.Navigate(game);
+            SelectionLocal selectionLocal = new SelectionLocal(frame);
+            frame.Navigate(selectionLocal);
         }
 
         private void OnClickOnePlayer(object o)
         {
+            SelectionIA selectionIA = new SelectionIA(frame);
+            frame.Navigate(selectionIA);
         }
 
         public DelegateCommand Retour { get => retour; set => retour = value; }

@@ -16,6 +16,9 @@ namespace Awale.Models
         private Player playeur2;
         private string winner;
         private string vicory;
+        private string egualite;
+        private Sauvegarde sauvegarde;
+        private ObservableCollection<Player> joueurs;
 
         public Game()
         {
@@ -37,6 +40,33 @@ namespace Awale.Models
             Playeur1.NbPartie++;
             Playeur2.NbPartie++;
             vicory = "Hidden";
+            egualite = "Hidden";
+        }
+
+        public Game(Player player1, Player player2)
+        {
+            sauvegarde = new Sauvegarde();
+            joueurs = sauvegarde.ReadXML();
+            trous = new List<string>();
+            trous.Add("Trou1");
+            trous.Add("Trou2");
+            trous.Add("Trou3");
+            trous.Add("Trou4");
+            trous.Add("Trou5");
+            trous.Add("Trou6");
+            trous.Add("Trou1Adverse");
+            trous.Add("Trou2Adverse");
+            trous.Add("Trou3Adverse");
+            trous.Add("Trou4Adverse");
+            trous.Add("Trou5Adverse");
+            trous.Add("Trou6Adverse");
+            Playeur1 = player1;
+            Playeur2 = player2;
+            joueurs.Where(joueur => joueur.Nom.Equals(playeur1.Nom)).First().NbPartie++;
+            joueurs.Where(joueur => joueur.Nom.Equals(playeur2.Nom)).First().NbPartie++;
+            sauvegarde.WriteXML(joueurs);
+            vicory = "Hidden";
+            egualite = "Hidden";
         }
 
         public Player Playeur1 { get => playeur1; set { playeur1 = value; RaisePropertyChanged("Playeur1"); } }
@@ -81,6 +111,14 @@ namespace Awale.Models
             {
                 vicory = value;
                 RaisePropertyChanged("Victory");
+            }
+        }
+        public string Egualite
+        {
+            get => egualite; set
+            {
+                egualite = value;
+                RaisePropertyChanged("Egualite");
             }
         }
     }
