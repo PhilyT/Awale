@@ -5,10 +5,70 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Awale.Views"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="300" d:DesignWidth="300"
       Title="SelectionReseau">
 
-    <Grid>
-        
+    <Grid Background="{StaticResource ImageDeFond}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="1*"/>
+        </Grid.ColumnDefinitions>
+        <Rectangle Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="3" Grid.RowSpan="8">
+            <Rectangle.Fill>
+                <SolidColorBrush Color="{DynamicResource BoardTransparent}"/>
+            </Rectangle.Fill>
+        </Rectangle>
+        <Label Name="label1" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Stretch" FontSize="{Binding Converter={StaticResource PercentageConverter},
+                       ConverterParameter={StaticResource myTitleDecimal}, Path=ActualHeight, ElementName=label1, Mode=OneWay}" Foreground="{DynamicResource ColorPoi}" Content="Nouveau Joueur :"/>
+        <Grid Grid.Column="3" Grid.RowSpan="2" Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <TextBox Name="nvjoueur" FontSize="{Binding Converter={StaticResource PercentageConverter},
+                       ConverterParameter={StaticResource myTitleDecimal}, Path=ActualHeight, ElementName=nvjoueur, Mode=OneWay}" Margin="5" Grid.Row="0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Text="{Binding NouveauJoueur, UpdateSourceTrigger=PropertyChanged}"/>
+            <Label Grid.Row="1" Name="label4" HorizontalAlignment="Right" Content="Ce nom existe déjà !" Visibility="{Binding Existe}" Foreground="Red" VerticalAlignment="Stretch" FontSize="{Binding Converter={StaticResource PercentageConverter},
+                       ConverterParameter={StaticResource myTitleDecimal}, Path=ActualHeight, ElementName=label4, Mode=OneWay}" />
+        </Grid>
+        <Button Name="ajouter" FontSize="{Binding Converter={StaticResource PercentageConverter},
+                       ConverterParameter={StaticResource myTitleDecimal}, Path=ActualHeight, ElementName=ajouter, Mode=OneWay}" Foreground="{StaticResource ColorPoi}" Margin="10" Command="{Binding Ajouter}" IsEnabled="{Binding ActiveAjout}" Background="Yellow" Content="Ajouter" HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" Grid.Row="3" Grid.Column="3"  Style="{DynamicResource ButtonStyle1}"/>
+        <Label Name="label2" Grid.Column="1" Grid.Row="4" HorizontalAlignment="Right" VerticalAlignment="Stretch" FontSize="{Binding Converter={StaticResource PercentageConverter},
+                       ConverterParameter={StaticResource myTitleDecimal}, Path=ActualHeight, ElementName=label2, Mode=OneWay}" Foreground="{DynamicResource ColorPoi}" Content="Joueur :"/>
+        <ComboBox Name="selectjoueur" FontSize="{Binding Converter={StaticResource PercentageConverter},
+                       ConverterParameter={StaticResource myTitleDecimal}, Path=ActualHeight, ElementName=selectjoueur, Mode=OneWay}" Margin="5" Grid.Column="3" Grid.Row="4" ItemsSource="{Binding Selection1}" SelectedItem="{Binding Player1}"/>
+        <Label Name="label3" Grid.Column="1" Grid.Row="6" HorizontalAlignment="Right" VerticalAlignment="Stretch" FontSize="{Binding Converter={StaticResource PercentageConverter},
+                       ConverterParameter={StaticResource myTitleDecimal}, Path=ActualHeight, ElementName=label3, Mode=OneWay}" Foreground="{DynamicResource ColorPoi}" Content="Port :"/>
+        <TextBox Margin="5" Grid.Column="3" Grid.Row="6" Name="porttext" FontSize="{Binding Converter={StaticResource PercentageConverter},
+                       ConverterParameter={StaticResource myTitleDecimal}, Path=ActualHeight, ElementName=porttext, Mode=OneWay}"/>
+        <Label Name="label5" Grid.Column="1" Grid.Row="7" HorizontalAlignment="Right" VerticalAlignment="Stretch" FontSize="{Binding Converter={StaticResource PercentageConverter},
+                       ConverterParameter={StaticResource myTitleDecimal}, Path=ActualHeight, ElementName=label5, Mode=OneWay}" Foreground="{DynamicResource ColorPoi}" Content="IP Adverse :"/>
+        <TextBox Margin="5" Grid.Column="3" Grid.Row="7" Name="iptext" FontSize="{Binding Converter={StaticResource PercentageConverter},
+                       ConverterParameter={StaticResource myTitleDecimal}, Path=ActualHeight, ElementName=iptext, Mode=OneWay}"/>
+        <Label Name="label6" Grid.Column="1" Grid.Row="8" HorizontalAlignment="Right" VerticalAlignment="Stretch" FontSize="{Binding Converter={StaticResource PercentageConverter},
+                       ConverterParameter={StaticResource myTitleDecimal}, Path=ActualHeight, ElementName=label6, Mode=OneWay}" Foreground="{DynamicResource ColorPoi}" Content="Port Adverse :"/>
+        <TextBox Margin="5" Grid.Column="3" Grid.Row="8" Name="portadtext" FontSize="{Binding Converter={StaticResource PercentageConverter},
+                       ConverterParameter={StaticResource myTitleDecimal}, Path=ActualHeight, ElementName=portadtext, Mode=OneWay}"/>
+
+        <Button Name="retour" FontSize="{Binding Converter={StaticResource PercentageConverter},
+                       ConverterParameter={StaticResource myTitleDecimal}, Path=ActualHeight, ElementName=retour, Mode=OneWay}" Foreground="{StaticResource ColorPoi}" Margin="10" Command="{Binding Retour}" Background="Red" Content="Retour" HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" Grid.Row="9" Grid.Column="1"  Style="{DynamicResource ButtonStyle1}"/>
+
+        <Button Name="commencer" FontSize="{Binding Converter={StaticResource PercentageConverter},
+                       ConverterParameter={StaticResource myTitleDecimal}, Path=ActualHeight, ElementName=commencer, Mode=OneWay}" Foreground="{StaticResource ColorPoi}" Margin="10" Command="{Binding Commencer}" Background="Yellow" Content="Commencer" HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" Grid.Row="9" Grid.Column="3"  Style="{DynamicResource ButtonStyle1}"/>
     </Grid>
 </Page>

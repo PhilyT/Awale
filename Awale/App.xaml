@@ -71,5 +71,6 @@
                 </Setter.Value>
             </Setter>
         </Style>
+        <Color x:Key="BoardTransparent">#BF834800</Color>
     </Application.Resources>
 </Application>

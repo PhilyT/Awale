@@ -44,6 +44,11 @@
             <RowDefinition Height="1*"/>
             <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
+        <Rectangle Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="3" Grid.RowSpan="2">
+            <Rectangle.Fill>
+                <SolidColorBrush Color="{DynamicResource BoardTransparent}"/>
+            </Rectangle.Fill>
+        </Rectangle>
         <Label Name="label1" Foreground="{StaticResource ColorPoi}" FontSize="{Binding Converter={StaticResource PercentageConverter},
                        ConverterParameter={StaticResource myTitleDecimal}, Path=ActualHeight, ElementName=label1, Mode=OneWay}" Content="Nom" Grid.Column="1" Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Right"/>
         <Label Name="label2" Foreground="{StaticResource ColorPoi}" FontSize="{Binding Converter={StaticResource PercentageConverter},

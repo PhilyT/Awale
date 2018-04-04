@@ -79,7 +79,6 @@
     <Compile Include="ViewModels\ViewModelLocal.cs" />
     <Compile Include="ViewModels\ViewModelMenu.cs" />
     <Compile Include="ViewModels\ViewModelGame.cs" />
-    <Compile Include="ViewModels\ViewModelReseau.cs" />
     <Compile Include="ViewModels\ViewModelScore.cs" />
     <Compile Include="ViewModels\ViewModelSelectionIA.cs" />
     <Compile Include="ViewModels\ViewModelSelectionLocal.cs" />
@@ -97,9 +96,6 @@
     </Compile>
     <Compile Include="Views\MenuView.xaml.cs">
       <DependentUpon>MenuView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\ReseauView.xaml.cs">
-      <DependentUpon>ReseauView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ScoreView.xaml.cs">
       <DependentUpon>ScoreView.xaml</DependentUpon>
@@ -141,10 +137,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Views\MenuView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\ReseauView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
