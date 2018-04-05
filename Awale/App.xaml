@@ -10,7 +10,7 @@
         <sys:Double x:Key="myAwaleDecimal">0.333</sys:Double>
         <sys:Double x:Key="myTitleDecimal">0.45</sys:Double>
         <sys:Double x:Key="myBoardDecimal">0.778</sys:Double>
-        <sys:Double x:Key="listConverter">0.99</sys:Double>
+        <sys:Double x:Key="listConverter">0.95</sys:Double>
         <sys:Double x:Key="myBoardRightDecimal">0.222</sys:Double>
         <sys:Double x:Key="myVictoryDecimal">0.1</sys:Double>
         <SolidColorBrush x:Key="ColorPoi" Color="#FF14B41C"/>

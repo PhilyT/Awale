@@ -33,8 +33,8 @@ namespace Awale.ViewModels
             sauvegarde = new Sauvegarde();
             existe = "Hidden";
             activeAjout = false;
-            joueurs = sauvegarde.ReadXML();
-            selection1 = joueurs;
+            joueurs = new ObservableCollection<Player>(sauvegarde.ReadXML().OrderBy(joueur => joueur.Nom));
+            selection1 = new ObservableCollection<Player>(joueurs);
             if (selection1.Count > 0)
             {
                 player1 = selection1.First();
@@ -50,9 +50,10 @@ namespace Awale.ViewModels
         private void OnClickAjouter(object o)
         {
             joueurs.Add(new Player(nouveauJoueur));
+            joueurs = new ObservableCollection<Player>(joueurs.OrderBy(joueur => joueur.Nom));
             NouveauJoueur = "";
             sauvegarde.WriteXML(joueurs);
-            Selection1 = joueurs;
+            Selection1 = new ObservableCollection<Player>(joueurs);
             if (player1 == null && selection1.Count > 0)
             {
                 player1 = selection1.First();

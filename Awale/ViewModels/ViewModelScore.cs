@@ -21,7 +21,7 @@ namespace Awale.ViewModels
             this.frame = frame;
             retour = new DelegateCommand(o => OnClickRetour(o));
             joueurs = new Sauvegarde().ReadXML();
-            joueurs = new ObservableCollection<Player>(joueurs.OrderBy(joueur => joueur.NbVictoire));
+            joueurs = new ObservableCollection<Player>(joueurs.OrderByDescending(joueur => joueur.NbVictoire));
         }
         private void OnClickRetour(object o)
         {

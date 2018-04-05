@@ -35,24 +35,20 @@ namespace Awale.ViewModels
             sauvegarde = new Sauvegarde();
             existe = "Hidden";
             activeAjout = false;
-            joueurs = sauvegarde.ReadXML();
-            selection1 = joueurs;
+            joueurs = new ObservableCollection<Player>(sauvegarde.ReadXML().OrderBy(joueur => joueur.Nom));
+            Selection1 = new ObservableCollection<Player>(joueurs);
             if(selection1.Count > 0)
             {
-                player1 = selection1.First();
+                Player1 = selection1.First();
+                Selection2 = new ObservableCollection<Player>(joueurs.Where(joueur => !joueur.Nom.Equals(player1.Nom)));
+                if (selection2.Count > 0)
+                {
+                    Player2 = selection2.First();
+                }
             }
-            IEnumerable<Player> numQuery =
-                                        from joueur in joueurs
-                                        where joueur.Nom != Player1.Nom
-                                        select joueur;
-            selection2 = new ObservableCollection<Player>();
-            foreach (Player joueur in numQuery)
+            else
             {
-                selection2.Add(joueur);
-            }
-            if (selection2.Count > 0)
-            {
-                Player2 = selection2.First();
+                selection2 = new ObservableCollection<Player>();
             }
         }
 
@@ -66,25 +62,36 @@ namespace Awale.ViewModels
         private void OnClickAjouter(object o)
         {
             joueurs.Add(new Player(nouveauJoueur));
+            joueurs = new ObservableCollection<Player>(joueurs.OrderBy(joueur => joueur.Nom));
             NouveauJoueur = "";
             sauvegarde.WriteXML(joueurs);
-            Selection1 = joueurs;
-            if (player1 == null  && selection1.Count > 0)
+            string nomjoueur1 = "";
+            string nomjoueur2 = "";
+            if(player1 != null)
             {
-                player1 = selection1.First();
+                nomjoueur1 = player1.Nom;
             }
-            IEnumerable<Player> numQuery =
-                                        from joueur in joueurs
-                                        where joueur.Nom != Player1.Nom
-                                        select joueur;
-            Selection2.Clear();
-            foreach (Player joueur in numQuery)
+            if(player2 != null)
             {
-                Selection2.Add(joueur);
+                nomjoueur2 = player2.Nom;
             }
-            if (player2 == null && selection2.Count > 0)
+            Selection1 = new ObservableCollection<Player>(joueurs.Where(joueur=>!joueur.Nom.Equals(nomjoueur2)));
+            if (!String.IsNullOrEmpty(nomjoueur1))
             {
-                Player2 = selection2.First();
+                Player1 = Selection1.First(joueur => joueur.Nom.Equals(nomjoueur1));
+            }
+            else
+            {
+                Player1 = Selection1.First();
+            }
+            Selection2 = new ObservableCollection<Player>(joueurs.Where(joueur => !joueur.Nom.Equals(Player1.Nom)));
+            if (!String.IsNullOrEmpty(nomjoueur2))
+            {
+                Player2 = Selection2.First(joueur => joueur.Nom.Equals(nomjoueur2));
+            }
+            else if(Selection2.Count>0)
+            {
+                Player2 = Selection2.First();
             }
         }
 
@@ -153,25 +160,27 @@ namespace Awale.ViewModels
         public Player Player1 { get => player1;
             set
             {
-                if (player1 != null)
-                {
-                    Selection2.Add(player1);
-                }
                 player1 = value;
-                Selection2.Remove(value);
                 RaisePropertyChanged("Player1");
+                if (player2 != null && value != null)
+                {
+                    string nomjoueur2 = player2.Nom;
+                    Selection2 = new ObservableCollection<Player>(joueurs.Where(joueur => !joueur.Nom.Equals(value.Nom)));
+                    player2 = Selection2.First(joueur => joueur.Nom.Equals(nomjoueur2));
+                }
             }
         }
         public Player Player2 { get => player2;
             set
-            {                
-                if(player2 != null)
-                {
-                    Selection1.Add(player2);
-                }
+            {
                 player2 = value;
-                Selection1.Remove(value);
                 RaisePropertyChanged("Player2");
+                if (player1 != null && value != null)
+                {
+                    string nomjoueur1 = player1.Nom;
+                    Selection1 = new ObservableCollection<Player>(joueurs.Where(joueur => !joueur.Nom.Equals(value.Nom)));
+                    player1 = Selection1.First(joueur => joueur.Nom.Equals(nomjoueur1));
+                }
             }
         }
     }
