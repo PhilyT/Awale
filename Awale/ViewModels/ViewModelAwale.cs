@@ -71,7 +71,7 @@ namespace Awale.ViewModels
             }
             bool tourJoueur2 = (nameSender.Contains("Adverse") && Game.Playeur2.TourDeJeu);
             bool tourJoueur1 = (!nameSender.Contains("Adverse") && Game.Playeur1.TourDeJeu);
-            if (tourJoueur2 || tourJoueur1)
+            if ((tourJoueur2 || tourJoueur1) && PeutJoueur(nameSender))
             {
                 List<PropertyInfo> propertiesInfos = new List<PropertyInfo>(GetType().GetProperties());
                 PropertyInfo sender = propertiesInfos.Find(item => item.Name.Equals(nameSender));
@@ -117,6 +117,29 @@ namespace Awale.ViewModels
                         peuRecolterJoueur1 = tourJoueur1 && nameDest.Contains("Adverse") && (nbGraines == 2 || nbGraines == 3);
                         peuRecolterJoueur2 = tourJoueur2 && !nameDest.Contains("Adverse") && (nbGraines == 2 || nbGraines == 3);
                     }
+                    if (FinPartie())
+                    {
+                        if (TrousPlayer1Vide())
+                        {
+                            Game.Playeur1.Recolte++;
+                            Game.Playeur2.Recolte = Game.Playeur2.Recolte - 1 + SommeTrouPlayer2();
+                        }
+                        else if(TrousPlayer2Vide())
+                        {
+                            Game.Playeur2.Recolte++;
+                            Game.Playeur1.Recolte = Game.Playeur1.Recolte - 1 + SommeTrouPlayer1();
+                        }
+                        else if(SommeTrouPlayer1() == 2)
+                        {
+                            Game.Playeur2.Recolte++;
+                            Game.Playeur1.Recolte = Game.Playeur1.Recolte - 1 + SommeTrouPlayer1();
+                        }
+                        else
+                        {
+                            Game.Playeur1.Recolte++;
+                            Game.Playeur2.Recolte = Game.Playeur2.Recolte - 1 + SommeTrouPlayer2();
+                        }
+                    }
                     if(Game.Playeur1.Recolte > 24)
                     {
                         Game.Playeur1.TourDeJeu = false;
@@ -148,6 +171,113 @@ namespace Awale.ViewModels
                     }
                 }
             }            
+        }
+
+        private int SommeTrouPlayer1()
+        {
+            return trou1 + trou2 + trou3 + trou4 + trou5 + trou6;
+        }
+
+        private int SommeTrouPlayer2()
+        {
+            return trou1Adverse + trou2Adverse + trou3Adverse + trou4Adverse + trou5Adverse + trou6Adverse;
+        }
+
+        private bool TrousPlayer1Vide()
+        {
+            return trou1 == 0 && trou2 ==0 && trou3 == 0 && trou4 == 0 && trou5 == 0 && trou6 == 0;
+        }
+
+        private bool TrousPlayer2Vide()
+        {
+            return trou1Adverse == 0 && trou2Adverse == 0 && trou3Adverse == 0 && trou4Adverse == 0 && trou5Adverse == 0 && trou6Adverse == 0;
+        }
+
+        private bool FinPartie()
+        {
+            return (TrousPlayer1Vide() && trou6Adverse < 1 && trou5Adverse < 2 && trou4Adverse < 3 && trou3Adverse < 4 && trou2Adverse < 5 && trou1Adverse < 6)||
+                (TrousPlayer2Vide() && trou6 < 1 && trou5 < 2 && trou4 < 3 && trou3 < 4 && trou2 < 5 && trou1 < 6) || (SommeTrouPlayer1() == 2 && SommeTrouPlayer2() ==1)||
+                (SommeTrouPlayer2() == 2 && SommeTrouPlayer1()==1);
+        }
+
+        private bool PeutJoueur(string nameSender)
+        {
+            switch (nameSender)
+            {
+                case "Trou1Adverse":
+                    if (TrousPlayer1Vide())
+                    {
+                        return trou1Adverse > 5;
+                    }
+                    break;
+                case "Trou2Adverse":
+                    if (TrousPlayer1Vide())
+                    {
+                        return trou2Adverse > 4;
+                    }
+                    break;
+                case "Trou3Adverse":
+                    if (TrousPlayer1Vide())
+                    {
+                        return trou3Adverse > 3;
+                    }
+                    break;
+                case "Trou4Adverse":
+                    if (TrousPlayer1Vide())
+                    {
+                        return trou4Adverse > 2;
+                    }
+                    break;
+                case "Trou5Adverse":
+                    if (TrousPlayer1Vide())
+                    {
+                        return trou5Adverse > 1;
+                    }
+                    break;
+                case "Trou6Adverse":
+                    if (TrousPlayer1Vide())
+                    {
+                        return trou6Adverse > 0;
+                    }
+                    break;
+                case "Trou1":
+                    if (TrousPlayer2Vide())
+                    {
+                        return trou1 > 5;
+                    }
+                    break;
+                case "Trou2":
+                    if (TrousPlayer2Vide())
+                    {
+                        return trou2 > 4;
+                    }
+                    break;
+                case "Trou3":
+                    if (TrousPlayer2Vide())
+                    {
+                        return trou3 > 3;
+                    }
+                    break;
+                case "Trou4":
+                    if (TrousPlayer2Vide())
+                    {
+                        return trou4 > 2;
+                    }
+                    break;
+                case "Trou5":
+                    if (TrousPlayer2Vide())
+                    {
+                        return trou5 > 1;
+                    }
+                    break;
+                case "Trou6":
+                    if (TrousPlayer2Vide())
+                    {
+                        return trou6 > 0;
+                    }
+                    break;
+            }
+            return true;
         }
 
         public int Trou1Adverse

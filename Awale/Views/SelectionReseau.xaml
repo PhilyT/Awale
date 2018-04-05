@@ -55,15 +55,15 @@
         <Label Name="label3" Grid.Column="1" Grid.Row="6" HorizontalAlignment="Right" VerticalAlignment="Stretch" FontSize="{Binding Converter={StaticResource PercentageConverter},
                        ConverterParameter={StaticResource myTitleDecimal}, Path=ActualHeight, ElementName=label3, Mode=OneWay}" Foreground="{DynamicResource ColorPoi}" Content="Port :"/>
         <TextBox Margin="5" Grid.Column="3" Grid.Row="6" Name="porttext" FontSize="{Binding Converter={StaticResource PercentageConverter},
-                       ConverterParameter={StaticResource myTitleDecimal}, Path=ActualHeight, ElementName=porttext, Mode=OneWay}"/>
+                       ConverterParameter={StaticResource myTitleDecimal}, Path=ActualHeight, ElementName=porttext, Mode=OneWay}" Text="{Binding Port, UpdateSourceTrigger=PropertyChanged}"/>
         <Label Name="label5" Grid.Column="1" Grid.Row="7" HorizontalAlignment="Right" VerticalAlignment="Stretch" FontSize="{Binding Converter={StaticResource PercentageConverter},
                        ConverterParameter={StaticResource myTitleDecimal}, Path=ActualHeight, ElementName=label5, Mode=OneWay}" Foreground="{DynamicResource ColorPoi}" Content="IP Adverse :"/>
         <TextBox Margin="5" Grid.Column="3" Grid.Row="7" Name="iptext" FontSize="{Binding Converter={StaticResource PercentageConverter},
-                       ConverterParameter={StaticResource myTitleDecimal}, Path=ActualHeight, ElementName=iptext, Mode=OneWay}"/>
+                       ConverterParameter={StaticResource myTitleDecimal}, Path=ActualHeight, ElementName=iptext, Mode=OneWay}" Text="{Binding IPAdverse, UpdateSourceTrigger=PropertyChanged}"/>
         <Label Name="label6" Grid.Column="1" Grid.Row="8" HorizontalAlignment="Right" VerticalAlignment="Stretch" FontSize="{Binding Converter={StaticResource PercentageConverter},
                        ConverterParameter={StaticResource myTitleDecimal}, Path=ActualHeight, ElementName=label6, Mode=OneWay}" Foreground="{DynamicResource ColorPoi}" Content="Port Adverse :"/>
         <TextBox Margin="5" Grid.Column="3" Grid.Row="8" Name="portadtext" FontSize="{Binding Converter={StaticResource PercentageConverter},
-                       ConverterParameter={StaticResource myTitleDecimal}, Path=ActualHeight, ElementName=portadtext, Mode=OneWay}"/>
+                       ConverterParameter={StaticResource myTitleDecimal}, Path=ActualHeight, ElementName=portadtext, Mode=OneWay}" Text="{Binding PortAdverse, UpdateSourceTrigger=PropertyChanged}"/>
 
         <Button Name="retour" FontSize="{Binding Converter={StaticResource PercentageConverter},
                        ConverterParameter={StaticResource myTitleDecimal}, Path=ActualHeight, ElementName=retour, Mode=OneWay}" Foreground="{StaticResource ColorPoi}" Margin="10" Command="{Binding Retour}" Background="Red" Content="Retour" HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" Grid.Row="9" Grid.Column="1"  Style="{DynamicResource ButtonStyle1}"/>

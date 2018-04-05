@@ -18,6 +18,9 @@ namespace Awale.ViewModels
         private DelegateCommand ajouter;
         private DelegateCommand commencer;
         private string existe;
+        private string port;
+        private string iPAdverse;
+        private string portAdverse;
         private string nouveauJoueur;
         private bool activeAjout;
         private ObservableCollection<Player> selection1;
@@ -131,6 +134,28 @@ namespace Awale.ViewModels
 
                 player1 = value;
                 RaisePropertyChanged("Player1");
+            }
+        }
+
+        public string IPAdverse { get => iPAdverse;
+            set
+            {
+                iPAdverse = value;
+                RaisePropertyChanged("IPAdverse");
+            }
+        }
+        public string PortAdverse { get => portAdverse;
+            set
+            {
+                portAdverse = value;
+                RaisePropertyChanged("PortAdverse");
+            }
+        }
+        public string Port { get => port;
+            set
+            {
+                port = value;
+                RaisePropertyChanged("Port");
             }
         }
     }
