@@ -72,8 +72,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Models\Client.cs" />
     <Compile Include="Models\ModelBase.cs" />
     <Compile Include="Models\Sauvegarde.cs" />
+    <Compile Include="Models\Serveur.cs" />
     <Compile Include="Utils\DelegateCommand.cs" />
     <Compile Include="Utils\PercentageConverter.cs" />
     <Compile Include="ViewModels\ViewModelLocal.cs" />

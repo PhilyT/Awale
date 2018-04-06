@@ -20,29 +20,6 @@ namespace Awale.Models
         private Sauvegarde sauvegarde;
         private ObservableCollection<Player> joueurs;
 
-        public Game()
-        {
-            trous = new List<string>();
-            trous.Add("Trou1");
-            trous.Add("Trou2");
-            trous.Add("Trou3");
-            trous.Add("Trou4");
-            trous.Add("Trou5");
-            trous.Add("Trou6");
-            trous.Add("Trou1Adverse");
-            trous.Add("Trou2Adverse");
-            trous.Add("Trou3Adverse");
-            trous.Add("Trou4Adverse");
-            trous.Add("Trou5Adverse");
-            trous.Add("Trou6Adverse");
-            Playeur1 = new Player("Player 1",true);
-            Playeur2 = new Player("Player 2",false);
-            Playeur1.NbPartie++;
-            Playeur2.NbPartie++;
-            vicory = "Hidden";
-            egualite = "Hidden";
-        }
-
         public Game(Player player1, Player player2)
         {
             sauvegarde = new Sauvegarde();
@@ -64,6 +41,81 @@ namespace Awale.Models
             Playeur2 = player2;
             joueurs.Where(joueur => joueur.Nom.Equals(playeur1.Nom)).First().NbPartie++;
             joueurs.Where(joueur => joueur.Nom.Equals(playeur2.Nom)).First().NbPartie++;
+            sauvegarde.WriteXML(joueurs);
+            vicory = "Hidden";
+            egualite = "Hidden";
+        }
+
+        public Game(Player player1, Player player2, Serveur serveur)
+        {
+            sauvegarde = new Sauvegarde();
+            joueurs = sauvegarde.ReadXML();
+            trous = new List<string>();
+            trous.Add("Trou1");
+            trous.Add("Trou2");
+            trous.Add("Trou3");
+            trous.Add("Trou4");
+            trous.Add("Trou5");
+            trous.Add("Trou6");
+            trous.Add("Trou1Adverse");
+            trous.Add("Trou2Adverse");
+            trous.Add("Trou3Adverse");
+            trous.Add("Trou4Adverse");
+            trous.Add("Trou5Adverse");
+            trous.Add("Trou6Adverse");
+            Playeur1 = player1;
+            Playeur2 = player2;
+            joueurs.Where(joueur => joueur.Nom.Equals(playeur1.Nom)).First().NbPartie++;
+            sauvegarde.WriteXML(joueurs);
+            vicory = "Hidden";
+            egualite = "Hidden";
+        }
+
+        public Game(Player player1, Player player2, Client client)
+        {
+            sauvegarde = new Sauvegarde();
+            joueurs = sauvegarde.ReadXML();
+            trous = new List<string>();
+            trous.Add("Trou1");
+            trous.Add("Trou2");
+            trous.Add("Trou3");
+            trous.Add("Trou4");
+            trous.Add("Trou5");
+            trous.Add("Trou6");
+            trous.Add("Trou1Adverse");
+            trous.Add("Trou2Adverse");
+            trous.Add("Trou3Adverse");
+            trous.Add("Trou4Adverse");
+            trous.Add("Trou5Adverse");
+            trous.Add("Trou6Adverse");
+            Playeur1 = player1;
+            Playeur2 = player2;
+            joueurs.Where(joueur => joueur.Nom.Equals(playeur1.Nom)).First().NbPartie++;
+            sauvegarde.WriteXML(joueurs);
+            vicory = "Hidden";
+            egualite = "Hidden";
+        }
+
+        public Game(Player player1, bool ia)
+        {
+            sauvegarde = new Sauvegarde();
+            joueurs = sauvegarde.ReadXML();
+            trous = new List<string>();
+            trous.Add("Trou1");
+            trous.Add("Trou2");
+            trous.Add("Trou3");
+            trous.Add("Trou4");
+            trous.Add("Trou5");
+            trous.Add("Trou6");
+            trous.Add("Trou1Adverse");
+            trous.Add("Trou2Adverse");
+            trous.Add("Trou3Adverse");
+            trous.Add("Trou4Adverse");
+            trous.Add("Trou5Adverse");
+            trous.Add("Trou6Adverse");
+            Playeur1 = player1;
+            Playeur2 = new Player("IA");
+            joueurs.Where(joueur => joueur.Nom.Equals(playeur1.Nom)).First().NbPartie++;
             sauvegarde.WriteXML(joueurs);
             vicory = "Hidden";
             egualite = "Hidden";

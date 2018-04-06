@@ -13,7 +13,6 @@ namespace Awale.Models
         private int id;
         private int nbVictoire;
         private int nbPartie;
-        private string ip;
         private bool tourDeJeu;
         private int recolte;
 
@@ -21,7 +20,6 @@ namespace Awale.Models
         public int Id { get => id; set { id = value; RaisePropertyChanged("Id"); } }
         public int NbVictoire { get => nbVictoire; set { nbVictoire = value; RaisePropertyChanged("NbVictoire"); } }
         public int NbPartie { get => nbPartie; set { nbPartie = value; RaisePropertyChanged("NbPartie"); } }
-        public string Ip { get => ip; set => ip = value; }
         public bool TourDeJeu { get => tourDeJeu; set { tourDeJeu = value; ; RaisePropertyChanged("TourDeJeu"); } }
         public int Recolte { get => recolte; set { recolte = value; RaisePropertyChanged("Recolte"); } }
 
@@ -32,12 +30,6 @@ namespace Awale.Models
             Nom = nom;
             NbPartie = 0;
             NbVictoire = 0;
-        }
-
-        public Player(string nom,bool tourDeJeu)
-        {
-            Nom = nom;
-            TourDeJeu = tourDeJeu;
         }
 
         public override string ToString()

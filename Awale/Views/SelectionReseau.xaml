@@ -67,8 +67,16 @@
 
         <Button Name="retour" FontSize="{Binding Converter={StaticResource PercentageConverter},
                        ConverterParameter={StaticResource myTitleDecimal}, Path=ActualHeight, ElementName=retour, Mode=OneWay}" Foreground="{StaticResource ColorPoi}" Margin="10" Command="{Binding Retour}" Background="Red" Content="Retour" HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" Grid.Row="9" Grid.Column="1"  Style="{DynamicResource ButtonStyle1}"/>
-
-        <Button Name="commencer" FontSize="{Binding Converter={StaticResource PercentageConverter},
-                       ConverterParameter={StaticResource myTitleDecimal}, Path=ActualHeight, ElementName=commencer, Mode=OneWay}" Foreground="{StaticResource ColorPoi}" Margin="10" Command="{Binding Commencer}" Background="Yellow" Content="Commencer" HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" Grid.Row="9" Grid.Column="3"  Style="{DynamicResource ButtonStyle1}"/>
+        <Grid Grid.Column="2" Grid.Row="9" Grid.ColumnSpan="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Button Name="rejoindre" FontSize="{Binding Converter={StaticResource PercentageConverter},
+                       ConverterParameter={StaticResource myTitleDecimal}, Path=ActualHeight, ElementName=rejoindre, Mode=OneWay}" Foreground="{StaticResource ColorPoi}" Margin="0,10,5,10" Command="{Binding Rejoindre}" Background="Yellow" Content="Rejoindre" HorizontalAlignment="Stretch"  VerticalAlignment="Stretch"  Grid.Column="0"  Style="{DynamicResource ButtonStyle1}"/>
+            <Button Name="heberger" FontSize="{Binding Converter={StaticResource PercentageConverter},
+                       ConverterParameter={StaticResource myTitleDecimal}, Path=ActualHeight, ElementName=heberger, Mode=OneWay}" Foreground="{StaticResource ColorPoi}" Margin="5,10,0,10" Command="{Binding Heberger}" Background="Yellow" Content="Heberger" HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" Grid.Column="1"  Style="{DynamicResource ButtonStyle1}"/>
+        </Grid>
+        
     </Grid>
 </Page>

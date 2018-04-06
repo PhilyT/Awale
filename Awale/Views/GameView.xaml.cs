@@ -27,5 +27,23 @@ namespace Awale.Views
             InitializeComponent();
             DataContext = new ViewModelGame(frame, player1, player2);
         }
+
+        public GameView(Frame frame, Player player1, Player player2, Serveur serveur)
+        {
+            InitializeComponent();
+            DataContext = new ViewModelGame(frame, player1, player2, serveur);
+        }
+
+        public GameView(Frame frame, Player player1, Player player2, Client client)
+        {
+            InitializeComponent();
+            DataContext = new ViewModelGame(frame, player1, player2, client);
+        }
+
+        public GameView(Frame frame, Player player1, bool ia)
+        {
+            InitializeComponent();
+            DataContext = new ViewModelGame(frame, player1, true);
+        }
     }
 }

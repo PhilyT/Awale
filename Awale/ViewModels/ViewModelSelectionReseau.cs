@@ -16,7 +16,8 @@ namespace Awale.ViewModels
         Frame frame;
         private DelegateCommand retour;
         private DelegateCommand ajouter;
-        private DelegateCommand commencer;
+        private DelegateCommand heberger;
+        private DelegateCommand rejoindre;
         private string existe;
         private string port;
         private string iPAdverse;
@@ -32,7 +33,8 @@ namespace Awale.ViewModels
             this.frame = frame;
             retour = new DelegateCommand(o => OnClickRetour(o));
             ajouter = new DelegateCommand(o => OnClickAjouter(o));
-            commencer = new DelegateCommand(o => OnClickCommencer(o));
+            heberger = new DelegateCommand(o => OnClickHeberger(o));
+            rejoindre = new DelegateCommand(o => OnClickRejoindre(o));
             sauvegarde = new Sauvegarde();
             existe = "Hidden";
             activeAjout = false;
@@ -43,11 +45,21 @@ namespace Awale.ViewModels
                 player1 = selection1.First();
             }
         }
-        private void OnClickCommencer(object o)
+
+        private void OnClickRejoindre(object o)
         {
-            //player1.TourDeJeu = true;
-            //GameView game = new GameView(frame, player1, player2);
-            //frame.Navigate(game);
+            player1.TourDeJeu = true;
+            Client client = new Client();
+            GameView game = new GameView(frame, player1, new Player("Reseau"), client);
+            frame.Navigate(game);
+        }
+
+        private void OnClickHeberger(object o)
+        {
+            player1.TourDeJeu = true;
+            Serveur serveur = new Serveur(port);
+            GameView game = new GameView(frame, player1, new Player("Reseau"), serveur);
+            frame.Navigate(game);
         }
 
         private void OnClickAjouter(object o)
@@ -73,7 +85,7 @@ namespace Awale.ViewModels
 
 
         public DelegateCommand Retour { get => retour; set => retour = value; }
-        public DelegateCommand Commencer { get => commencer; set => commencer = value; }
+        public DelegateCommand Heberger { get => heberger; set => heberger = value; }
         public DelegateCommand Ajouter { get => ajouter; set => ajouter = value; }
         public string Existe
         {
@@ -158,5 +170,7 @@ namespace Awale.ViewModels
                 RaisePropertyChanged("Port");
             }
         }
+
+        public DelegateCommand Rejoindre { get => rejoindre; set => rejoindre = value; }
     }
 }

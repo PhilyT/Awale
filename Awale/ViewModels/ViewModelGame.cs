@@ -15,16 +15,29 @@ namespace Awale.ViewModels
         private Game game;
         private DelegateCommand delegateCommand;
         private Frame frame;
-        public ViewModelGame(Frame frame)
-        {
-            Game = new Game();
-            DelegateCommand = new DelegateCommand(o => OnClickRetour(o));
-            this.frame = frame;
-        }
 
         public ViewModelGame(Frame frame, Player player1, Player player2)
         {
             Game = new Game(player1, player2);
+            DelegateCommand = new DelegateCommand(o => OnClickRetour(o));
+            this.frame = frame;
+        }
+
+        public ViewModelGame(Frame frame, Player player1, Player player2,Serveur serveur)
+        {
+            Game = new Game(player1, player2, serveur);
+            DelegateCommand = new DelegateCommand(o => OnClickRetour(o));
+            this.frame = frame;
+        }
+        public ViewModelGame(Frame frame, Player player1, Player player2, Client client)
+        {
+            Game = new Game(player1, player2, client);
+            DelegateCommand = new DelegateCommand(o => OnClickRetour(o));
+            this.frame = frame;
+        }
+        public ViewModelGame(Frame frame, Player player1, bool ia)
+        {
+            Game = new Game(player1, ia);
             DelegateCommand = new DelegateCommand(o => OnClickRetour(o));
             this.frame = frame;
         }

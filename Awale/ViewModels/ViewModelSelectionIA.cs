@@ -43,9 +43,9 @@ namespace Awale.ViewModels
 
         private void OnClickCommencer(object o)
         {
-            //player1.TourDeJeu = true;
-            //GameView game = new GameView(frame, player1, player2);
-            //frame.Navigate(game);
+            player1.TourDeJeu = true;
+            GameView game = new GameView(frame, player1,true);
+            frame.Navigate(game);
         }
 
         private void OnClickAjouter(object o)
