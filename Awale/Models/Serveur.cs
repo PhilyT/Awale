@@ -13,85 +13,105 @@ namespace Awale.Models
     {
         private static string nomPlayer2;
         // Thread signal.  
-        public static ManualResetEvent allDone = new ManualResetEvent(false);
+        public static ManualResetEvent allDone;
         private static Socket handler;
         private static string nomPlayer1;
         private static bool serveurRunning;
+        private static Socket listener;
 
         public static string NomPlayer2 { get => nomPlayer2; set => nomPlayer2 = value; }
 
-        public static async Task Run(string port, string nom)
+        public static Task Run(string port, string nom)
         {
-            if(int.TryParse(port, out int portNumber))
+            return Task.Run(() =>
             {
-                // Data buffer for incoming data.  
-                byte[] bytes = new Byte[1024];
-                nomPlayer1 = nom;
-                // Establish the local endpoint for the socket.  
-                // The DNS name of the computer  
-                // running the listener is "host.contoso.com".  
-                IPHostEntry ipHostInfo = Dns.GetHostEntry(Dns.GetHostName());
-                IPAddress ipAddress = ipHostInfo.AddressList[0];
-                IPEndPoint localEndPoint = new IPEndPoint(ipAddress, portNumber);
-
-                // Create a TCP/IP socket.  
-                Socket listener = new Socket(ipAddress.AddressFamily,
-                    SocketType.Stream, ProtocolType.Tcp);
-
-                // Bind the socket to the local endpoint and listen for incoming connections.  
-                try
+                allDone = new ManualResetEvent(false);
+                if (int.TryParse(port, out int portNumber))
                 {
-                    listener.Bind(localEndPoint);
-                    listener.Listen(1);
-                    serveurRunning = true;
-                    while (serveurRunning)
+                    // Data buffer for incoming data.  
+                    byte[] bytes = new Byte[1024];
+                    nomPlayer1 = nom;
+                    // Establish the local endpoint for the socket.  
+                    // The DNS name of the computer  
+                    // running the listener is "host.contoso.com".  
+                    IPHostEntry ipHostInfo = Dns.GetHostEntry(Dns.GetHostName());
+                    IPAddress ipAddress = ipHostInfo.AddressList[0];
+                    IPEndPoint localEndPoint = new IPEndPoint(ipAddress, portNumber);
+
+                    // Create a TCP/IP socket.  
+                    listener = new Socket(ipAddress.AddressFamily,
+                        SocketType.Stream, ProtocolType.Tcp);
+
+                    // Bind the socket to the local endpoint and listen for incoming connections.  
+                    try
                     {
-                        // Set the event to nonsignaled state.  
-                        allDone.Reset();
+                        listener.Bind(localEndPoint);
+                        listener.Listen(1);
+                        serveurRunning = true;
+                        while (serveurRunning)
+                        {
+                            // Set the event to nonsignaled state.  
+                            allDone.Reset();
 
-                        // Start an asynchronous socket to listen for connections.  
-                        Console.WriteLine("Waiting for a connection...");
-                        listener.BeginAccept(
-                            new AsyncCallback(AcceptCallback),
-                            listener);
+                            // Start an asynchronous socket to listen for connections.  
+                            Console.WriteLine("Waiting for a connection...");
+                            listener.BeginAccept(
+                                new AsyncCallback(AcceptCallback),
+                                listener);
 
-                        // Wait until a connection is made before continuing.  
-                        allDone.WaitOne();
+                            // Wait until a connection is made before continuing.  
+                            allDone.WaitOne();
+                        }
+
                     }
-
+                    catch (Exception e)
+                    {
+                        Console.WriteLine(e.ToString());
+                    }
                 }
-                catch (Exception e)
-                {
-                    Console.WriteLine(e.ToString());
-                }
-            }
+            });
         }
 
         public static void Stop()
         {
             serveurRunning = false;
-            allDone.Close();
+            if(allDone != null)
+            {
+                allDone.Close();
+            }
             if(handler != null)
             {
                 handler.Shutdown(SocketShutdown.Both);
                 handler.Close();
             }
+            if(listener != null)
+            {
+
+                listener.Close();
+            }
         }
 
         private static void AcceptCallback(IAsyncResult ar)
         {
-            // Signal the main thread to continue.  
-            allDone.Set();
+            try
+            {
+                // Signal the main thread to continue.  
+                allDone.Set();
 
-            // Get the socket that handles the client request.  
-            Socket listener = (Socket)ar.AsyncState;
-            handler = listener.EndAccept(ar);
+                // Get the socket that handles the client request.  
+                Socket listener = (Socket)ar.AsyncState;
+                handler = listener.EndAccept(ar);
 
-            // Create the state object.  
-            StateObject state = new StateObject();
-            state.workSocket = handler;
-            handler.BeginReceive(state.buffer, 0, StateObject.BufferSize, 0,
-                new AsyncCallback(ReadCallback), state);
+                // Create the state object.  
+                StateObject state = new StateObject();
+                state.workSocket = handler;
+                handler.BeginReceive(state.buffer, 0, StateObject.BufferSize, 0,
+                    new AsyncCallback(ReadCallback), state);
+            }
+            catch(ObjectDisposedException)
+            {
+                Console.WriteLine("serveur diconected");
+            }
         }
 
         private static void ReadCallback(IAsyncResult ar)

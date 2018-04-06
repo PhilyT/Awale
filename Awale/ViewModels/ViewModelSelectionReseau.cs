@@ -56,7 +56,7 @@ namespace Awale.ViewModels
             player1.TourDeJeu = true;
             reponseClient = Client.StartClient(iPAdverse, portAdverse, player1.Nom);
             timer1 = new Timer(2000);
-            timer1.Elapsed += new ElapsedEventHandler(timerRejoindre);
+            timer1.Elapsed += new ElapsedEventHandler(TimerRejoindre);
             timer1.Start();
         }
 
@@ -64,16 +64,16 @@ namespace Awale.ViewModels
         {
             player1.TourDeJeu = true;
             responseServeur = Serveur.Run(port, player1.Nom);
-            timer2 = new Timer(10000);
-            timer2.Elapsed += new ElapsedEventHandler(timerHeberger);
+            timer2 = new Timer(30000);
+            timer2.Elapsed += new ElapsedEventHandler(TimerHeberger);
             timer2.Start();
         }
 
-        private void timerRejoindre(object sender, ElapsedEventArgs e)
+        private async void TimerRejoindre(object sender, ElapsedEventArgs e)
         {
             if (reponseClient.IsCompleted)
             {
-                string response = reponseClient.Result;
+                string response = await reponseClient;
                 if (!String.IsNullOrEmpty(response))
                 {
                     GameView game = new GameView(frame, player1, new Player(response), new Client());
@@ -91,10 +91,11 @@ namespace Awale.ViewModels
             timer1.Stop();
         }
 
-        private void timerHeberger(object sender, ElapsedEventArgs e)
+        private async void TimerHeberger(object sender, ElapsedEventArgs e)
         {
-            if (!String.IsNullOrEmpty(Serveur.NomPlayer2))
+            if (responseServeur.IsCompleted && !String.IsNullOrEmpty(Serveur.NomPlayer2))
             {
+                await responseServeur;
                 GameView game = new GameView(frame, player1, new Player(Serveur.NomPlayer2), new Serveur());
                 frame.Navigate(game);
             }
@@ -121,6 +122,8 @@ namespace Awale.ViewModels
 
         private void OnClickRetour(object o)
         {
+            Client.Stop();
+            Serveur.Stop();
             MenuView menu = new MenuView(frame);
             frame.Navigate(menu);
         }

@@ -13,67 +13,92 @@ namespace Awale.Models
     {
 
         // ManualResetEvent instances signal completion.  
-        private static ManualResetEvent connectDone =
-            new ManualResetEvent(false);
-        private static ManualResetEvent sendDone =
-            new ManualResetEvent(false);
-        private static ManualResetEvent receiveDone =
-            new ManualResetEvent(false);
+        private static ManualResetEvent connectDone;
+        private static ManualResetEvent sendDone;
+        private static ManualResetEvent receiveDone;
 
         // The response from the remote device.  
         private static String response = String.Empty;
         private static Socket client;
 
-        public static async Task<string> StartClient(string ip, string port, string nameplayer)
+        public static Task<string> StartClient(string ip, string port, string nameplayer)
         {
-            // Connect to a remote device.  
-            try
+            return Task.Run(() =>
             {
-                // Establish the remote endpoint for the socket.  
-                // The name of the   
-                // remote device is "host.contoso.com".  
-                IPHostEntry ipHostInfo = Dns.GetHostEntry(ip);
-                IPAddress ipAddress = ipHostInfo.AddressList[0];
-                IPEndPoint remoteEP = new IPEndPoint(ipAddress, int.Parse(port));
+                connectDone =
+            new ManualResetEvent(false);
+                sendDone =
+            new ManualResetEvent(false);
+                receiveDone =
+            new ManualResetEvent(false);
+                // Connect to a remote device.  
+                try
+                {
+                    // Establish the remote endpoint for the socket.  
+                    // The name of the   
+                    // remote device is "host.contoso.com".  
+                    IPHostEntry ipHostInfo = Dns.GetHostEntry(ip);
+                    IPAddress ipAddress = ipHostInfo.AddressList[0];
+                    foreach (IPAddress ipa in ipHostInfo.AddressList)
+                    {
+                        AddressFamily af = ipa.AddressFamily;
+                        if (af == AddressFamily.InterNetwork)
+                        {
+                            ipAddress = ipa;
+                            break;
+                        }
+                    }
+                    IPEndPoint remoteEP = new IPEndPoint(ipAddress, int.Parse(port));
 
-                // Create a TCP/IP socket.  
-                client = new Socket(ipAddress.AddressFamily,
-                    SocketType.Stream, ProtocolType.Tcp);
+                    // Create a TCP/IP socket.  
+                    client = new Socket(ipAddress.AddressFamily,
+                        SocketType.Stream, ProtocolType.Tcp);
 
-                // Connect to the remote endpoint.  
-                client.BeginConnect(remoteEP,
-                    new AsyncCallback(ConnectCallback), client);
-                connectDone.WaitOne();
+                    // Connect to the remote endpoint.  
+                    client.BeginConnect(remoteEP,
+                        new AsyncCallback(ConnectCallback), client);
+                    connectDone.WaitOne();
 
-                // Send test data to the remote device.  
-                Send("client:test/player:"+nameplayer+"<EOF>");
-                sendDone.WaitOne();
+                    // Send test data to the remote device.  
+                    Send("client:test/player:" + nameplayer + "<EOF>");
+                    sendDone.WaitOne();
 
-                // Receive the response from the remote device.  
-                Receive();
-                receiveDone.WaitOne();
+                    // Receive the response from the remote device.  
+                    Receive();
+                    receiveDone.WaitOne();
 
-                // Write the response to the console.  
-                Console.WriteLine("Response received : {0}", response);
+                    // Write the response to the console.  
+                    Console.WriteLine("Response received : {0}", response);
 
-                // Release the socket.  
-                client.Shutdown(SocketShutdown.Both);
-                client.Close();
-                return response;
+                    // Release the socket.  
+                    client.Shutdown(SocketShutdown.Both);
+                    client.Close();
+                    return response;
 
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.ToString());
-                return "";
-            }
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.ToString());
+                    return "";
+                }
+            });
         }
 
         public static void Stop()
         {
-            connectDone.Close();
-            sendDone.Close();
-            if(client != null && client.Connected)
+            if(connectDone != null)
+            {
+                connectDone.Close();
+            }
+            if (sendDone != null)
+            {
+                sendDone.Close();
+            }
+            if (receiveDone != null)
+            {
+                receiveDone.Close();
+            }
+            if (client != null && client.Connected)
             {
                 client.Shutdown(SocketShutdown.Both);
                 client.Close();
