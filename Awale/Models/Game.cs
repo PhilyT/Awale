@@ -19,6 +19,9 @@ namespace Awale.Models
         private string egualite;
         private Sauvegarde sauvegarde;
         private ObservableCollection<Player> joueurs;
+        private readonly Client client;
+        private readonly Serveur serveur;
+        private readonly bool ia;
 
         public Game(Player player1, Player player2)
         {
@@ -65,6 +68,7 @@ namespace Awale.Models
             trous.Add("Trou6Adverse");
             Playeur1 = player1;
             Playeur2 = player2;
+            this.serveur = serveur;
             joueurs.Where(joueur => joueur.Nom.Equals(playeur1.Nom)).First().NbPartie++;
             sauvegarde.WriteXML(joueurs);
             vicory = "Hidden";
@@ -90,6 +94,7 @@ namespace Awale.Models
             trous.Add("Trou6Adverse");
             Playeur1 = player1;
             Playeur2 = player2;
+            this.client = client;
             joueurs.Where(joueur => joueur.Nom.Equals(playeur1.Nom)).First().NbPartie++;
             sauvegarde.WriteXML(joueurs);
             vicory = "Hidden";
@@ -114,6 +119,7 @@ namespace Awale.Models
             trous.Add("Trou5Adverse");
             trous.Add("Trou6Adverse");
             Playeur1 = player1;
+            this.ia = ia;
             Playeur2 = new Player("IA");
             joueurs.Where(joueur => joueur.Nom.Equals(playeur1.Nom)).First().NbPartie++;
             sauvegarde.WriteXML(joueurs);
@@ -173,5 +179,11 @@ namespace Awale.Models
                 RaisePropertyChanged("Egualite");
             }
         }
+
+        public Serveur Serveur => serveur;
+
+        public bool Ia => ia;
+
+        public Client Client => client;
     }
 }

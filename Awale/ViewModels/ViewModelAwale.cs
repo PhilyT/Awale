@@ -58,9 +58,29 @@ namespace Awale.ViewModels
 
         private void OnClickTrou(object o)
         {
+            if(game.Client != null)
+            {
+                ClientComportement(o);
+            }
+            else if (game.Serveur != null)
+            {
+                ServeurComportement(o);
+            }
+            else if (game.Ia)
+            {
+                IAComportement(o);
+            }
+            else
+            {
+                LocalComportement(o);
+            }
+        }
+
+        private void LocalComportement(object o)
+        {
             string nameSender = "";
             Label senderAsLabel = o as Label;
-            if(senderAsLabel != null)
+            if (senderAsLabel != null)
             {
                 nameSender = senderAsLabel.Name.Split('_')[0];
             }
@@ -76,7 +96,7 @@ namespace Awale.ViewModels
                 List<PropertyInfo> propertiesInfos = new List<PropertyInfo>(GetType().GetProperties());
                 PropertyInfo sender = propertiesInfos.Find(item => item.Name.Equals(nameSender));
                 int nbGraines = (int)sender.GetValue(this);
-                if(nbGraines > 0)
+                if (nbGraines > 0)
                 {
                     sender.SetValue(this, 0);
                     string nameDest = Game.Next(nameSender);
@@ -90,7 +110,7 @@ namespace Awale.ViewModels
                             dest.SetValue(this, nbGrainesDest + 1);
                             nbGraines--;
                         }
-                        if(nbGraines > 0)
+                        if (nbGraines > 0)
                         {
                             nameDest = Game.Next(nameDest);
                         }
@@ -99,7 +119,7 @@ namespace Awale.ViewModels
                     nbGraines = (int)dest.GetValue(this);
                     bool peuRecolterJoueur1 = tourJoueur1 && nameDest.Contains("Adverse") && (nbGraines == 2 || nbGraines == 3);
                     bool peuRecolterJoueur2 = tourJoueur2 && !nameDest.Contains("Adverse") && (nbGraines == 2 || nbGraines == 3);
-                    while (peuRecolterJoueur1||peuRecolterJoueur2 && count>0)
+                    while (peuRecolterJoueur1 || peuRecolterJoueur2 && count > 0)
                     {
                         dest.SetValue(this, 0);
                         if (tourJoueur1)
@@ -124,12 +144,12 @@ namespace Awale.ViewModels
                             Game.Playeur1.Recolte++;
                             Game.Playeur2.Recolte = Game.Playeur2.Recolte - 1 + SommeTrouPlayer2();
                         }
-                        else if(TrousPlayer2Vide())
+                        else if (TrousPlayer2Vide())
                         {
                             Game.Playeur2.Recolte++;
                             Game.Playeur1.Recolte = Game.Playeur1.Recolte - 1 + SommeTrouPlayer1();
                         }
-                        else if(SommeTrouPlayer1() == 2)
+                        else if (SommeTrouPlayer1() == 2)
                         {
                             Game.Playeur2.Recolte++;
                             Game.Playeur1.Recolte = Game.Playeur1.Recolte - 1 + SommeTrouPlayer1();
@@ -140,7 +160,7 @@ namespace Awale.ViewModels
                             Game.Playeur2.Recolte = Game.Playeur2.Recolte - 1 + SommeTrouPlayer2();
                         }
                     }
-                    if(Game.Playeur1.Recolte > 24)
+                    if (Game.Playeur1.Recolte > 24)
                     {
                         Game.Playeur1.TourDeJeu = false;
                         Game.Playeur2.TourDeJeu = false;
@@ -149,7 +169,7 @@ namespace Awale.ViewModels
                         Game.Victory = "Visible";
                         Game.Winner = Game.Playeur1.Nom;
                     }
-                    else if(Game.Playeur2.Recolte > 24)
+                    else if (Game.Playeur2.Recolte > 24)
                     {
                         Game.Playeur1.TourDeJeu = false;
                         Game.Playeur2.TourDeJeu = false;
@@ -158,7 +178,7 @@ namespace Awale.ViewModels
                         Game.Victory = "Visible";
                         Game.Winner = Game.Playeur2.Nom;
                     }
-                    else if(Game.Playeur1.Recolte ==24 && Game.Playeur2.Recolte == 24)
+                    else if (Game.Playeur1.Recolte == 24 && Game.Playeur2.Recolte == 24)
                     {
                         Game.Playeur1.TourDeJeu = false;
                         Game.Playeur2.TourDeJeu = false;
@@ -170,7 +190,22 @@ namespace Awale.ViewModels
                         Game.Playeur2.TourDeJeu = !Game.Playeur2.TourDeJeu;
                     }
                 }
-            }            
+            }
+        }
+
+        private void IAComportement(object o)
+        {
+            // Todo : Ici il faut implémenter le code pour l'ia
+        }
+
+        private void ClientComportement(object o)
+        {
+            // Todo : Ici il faut implémenter le code pour le cas du client
+        }
+
+        private void ServeurComportement(object o)
+        {
+            // Todo : Ici il faut implémenter le code pour le cas du serveur
         }
 
         private int SommeTrouPlayer1()
