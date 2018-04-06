@@ -7,6 +7,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Timers;
 using System.Windows.Controls;
 
 namespace Awale.ViewModels
@@ -28,6 +29,10 @@ namespace Awale.ViewModels
         private Sauvegarde sauvegarde;
         private Player player1;
         private ObservableCollection<Player> joueurs;
+        Task<string> reponseClient;
+        Task responseServeur;
+        Timer timer1;
+        Timer timer2;
         public ViewModelSelectionReseau(Frame frame)
         {
             this.frame = frame;
@@ -49,17 +54,55 @@ namespace Awale.ViewModels
         private void OnClickRejoindre(object o)
         {
             player1.TourDeJeu = true;
-            Client client = new Client();
-            GameView game = new GameView(frame, player1, new Player("Reseau"), client);
-            frame.Navigate(game);
+            reponseClient = Client.StartClient(iPAdverse, portAdverse, player1.Nom);
+            timer1 = new Timer(2000);
+            timer1.Elapsed += new ElapsedEventHandler(timerRejoindre);
+            timer1.Start();
         }
 
         private void OnClickHeberger(object o)
         {
             player1.TourDeJeu = true;
-            Serveur serveur = new Serveur(port);
-            GameView game = new GameView(frame, player1, new Player("Reseau"), serveur);
-            frame.Navigate(game);
+            responseServeur = Serveur.Run(port, player1.Nom);
+            timer2 = new Timer(10000);
+            timer2.Elapsed += new ElapsedEventHandler(timerHeberger);
+            timer2.Start();
+        }
+
+        private void timerRejoindre(object sender, ElapsedEventArgs e)
+        {
+            if (reponseClient.IsCompleted)
+            {
+                string response = reponseClient.Result;
+                if (!String.IsNullOrEmpty(response))
+                {
+                    GameView game = new GameView(frame, player1, new Player(response), new Client());
+                    frame.Navigate(game);
+                }
+                else
+                {
+                    Client.Stop();
+                }
+            }
+            else
+            {
+                Client.Stop();
+            }
+            timer1.Stop();
+        }
+
+        private void timerHeberger(object sender, ElapsedEventArgs e)
+        {
+            if (!String.IsNullOrEmpty(Serveur.NomPlayer2))
+            {
+                GameView game = new GameView(frame, player1, new Player(Serveur.NomPlayer2), new Serveur());
+                frame.Navigate(game);
+            }
+            else
+            {
+                Serveur.Stop();
+            }
+            timer2.Stop();
         }
 
         private void OnClickAjouter(object o)
