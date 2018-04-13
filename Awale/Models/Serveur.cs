@@ -11,175 +11,116 @@ namespace Awale.Models
 {
     public class Serveur
     {
-        private static string nomPlayer2;
-        // Thread signal.  
-        public static ManualResetEvent allDone;
-        private static Socket handler;
-        private static string nomPlayer1;
-        private static bool serveurRunning;
-        private static Socket listener;
+        private event EventHandler reception;
+        private int port;
+        private TcpListener server;
+        private TcpClient client;
+        private NetworkStream stream;
+        private bool running;
+        private string nomPlayer;
 
-        public static string NomPlayer2 { get => nomPlayer2; set => nomPlayer2 = value; }
+        public EventHandler Reception
+        {
+            get
+            {
+                return reception;
+            }
+            set
+            {
+                reception = value;
+            }
+        }
+        
+        public string NomPlayer { get => nomPlayer; set => nomPlayer = value; }
 
-        public static Task Run(string port, string nom)
+        public bool Start(string port, string nomPlayer)
+        {
+            this.nomPlayer = nomPlayer;
+            if(int.TryParse(port, out this.port))
+            {
+                IPAddress localadresse = IPAddress.Parse("127.0.0.14");
+                server = new TcpListener(localadresse, this.port);
+                server.Start();
+                running = true;
+                return true;
+            }
+            return false;
+        }
+
+        public void Stop()
+        {
+            if (client != null && client.Connected)
+            {
+                client.Close();
+            }
+            server.Stop();
+            running = false;
+        }
+
+        public Task Accept()
         {
             return Task.Run(() =>
             {
-                allDone = new ManualResetEvent(false);
-                if (int.TryParse(port, out int portNumber))
+                try
                 {
-                    // Data buffer for incoming data.  
-                    byte[] bytes = new Byte[1024];
-                    nomPlayer1 = nom;
-                    // Establish the local endpoint for the socket.  
-                    // The DNS name of the computer  
-                    // running the listener is "host.contoso.com".  
-                    IPHostEntry ipHostInfo = Dns.GetHostEntry(Dns.GetHostName());
-                    IPAddress ipAddress = ipHostInfo.AddressList[0];
-                    IPEndPoint localEndPoint = new IPEndPoint(ipAddress, portNumber);
+                    // Buffer for reading data
+                    Byte[] bytes = new Byte[256];
+                    String data = null;
 
-                    // Create a TCP/IP socket.  
-                    listener = new Socket(ipAddress.AddressFamily,
-                        SocketType.Stream, ProtocolType.Tcp);
-
-                    // Bind the socket to the local endpoint and listen for incoming connections.  
-                    try
+                    // Enter the listening loop.
+                    while (running)
                     {
-                        listener.Bind(localEndPoint);
-                        listener.Listen(1);
-                        serveurRunning = true;
-                        while (serveurRunning)
+                        Console.Write("Waiting for a connection... ");
+
+                        // Perform a blocking call to accept requests.
+                        // You could also user server.AcceptSocket() here.
+                        client = server.AcceptTcpClient();
+                        Console.WriteLine("Connected!");
+
+                        data = null;
+
+                        // Get a stream object for reading and writing
+                        stream = client.GetStream();
+
+                        int i;
+
+                        // Loop to receive all the data sent by the client.
+                        while ((i = stream.Read(bytes, 0, bytes.Length)) != 0)
                         {
-                            // Set the event to nonsignaled state.  
-                            allDone.Reset();
-
-                            // Start an asynchronous socket to listen for connections.  
-                            Console.WriteLine("Waiting for a connection...");
-                            listener.BeginAccept(
-                                new AsyncCallback(AcceptCallback),
-                                listener);
-
-                            // Wait until a connection is made before continuing.  
-                            allDone.WaitOne();
+                            // Translate data bytes to a ASCII string.
+                            data = Encoding.ASCII.GetString(bytes, 0, i);
+                            Console.WriteLine("Received: {0}", data);
                         }
 
+                        // Shutdown and end connection
+                        client.Close();
                     }
-                    catch (Exception e)
-                    {
-                        Console.WriteLine(e.ToString());
-                    }
+                }
+                catch (SocketException e)
+                {
+                    Console.WriteLine("SocketException: {0}", e);
+                }
+                finally
+                {
+                    // Stop listening for new clients.
+                    server.Stop();
                 }
             });
         }
 
-        public static void Stop()
+        public Task SendData(string data)
         {
-            serveurRunning = false;
-            if(allDone != null)
+            return Task.Run(() =>
             {
-                allDone.Close();
-            }
-            if(handler != null)
-            {
-                handler.Shutdown(SocketShutdown.Both);
-                handler.Close();
-            }
-            if(listener != null)
-            {
+                // Process the data sent by the client.
+                data = data.ToUpper();
 
-                listener.Close();
-            }
-        }
+                byte[] msg = Encoding.ASCII.GetBytes(data);
 
-        private static void AcceptCallback(IAsyncResult ar)
-        {
-            try
-            {
-                // Signal the main thread to continue.  
-                allDone.Set();
-
-                // Get the socket that handles the client request.  
-                Socket listener = (Socket)ar.AsyncState;
-                handler = listener.EndAccept(ar);
-
-                // Create the state object.  
-                StateObject state = new StateObject();
-                state.workSocket = handler;
-                handler.BeginReceive(state.buffer, 0, StateObject.BufferSize, 0,
-                    new AsyncCallback(ReadCallback), state);
-            }
-            catch(ObjectDisposedException)
-            {
-                Console.WriteLine("serveur diconected");
-            }
-        }
-
-        private static void ReadCallback(IAsyncResult ar)
-        {
-            String content = String.Empty;
-
-            // Retrieve the state object and the handler socket  
-            // from the asynchronous state object.  
-            StateObject state = (StateObject)ar.AsyncState;
-            handler = state.workSocket;
-
-            // Read data from the client socket.   
-            int bytesRead = handler.EndReceive(ar);
-
-            if (bytesRead > 0)
-            {
-                // There  might be more data, so store the data received so far.  
-                state.sb.Append(Encoding.ASCII.GetString(
-                    state.buffer, 0, bytesRead));
-
-                // Check for end-of-file tag. If it is not there, read   
-                // more data.  
-                content = state.sb.ToString();
-                if (content.IndexOf("<EOF>") > -1)
-                {
-                    // All the data has been read from the   
-                    // client. Display it on the console.  
-                    Console.WriteLine("Read {0} bytes from socket. \n Data : {1}",
-                        content.Length, content);
-                    string response = "serveur:ok/client:" + nomPlayer1 + "<EOF>";
-                    // Echo the data back to the client.  
-                    Send(response);
-                }
-                else
-                {
-                    // Not all data received. Get more.  
-                    handler.BeginReceive(state.buffer, 0, StateObject.BufferSize, 0,
-                    new AsyncCallback(ReadCallback), state);
-                }
-            }
-        }
-
-        public static void Send(String data)
-        {
-            // Convert the string data to byte data using ASCII encoding.  
-            byte[] byteData = Encoding.ASCII.GetBytes(data);
-
-            // Begin sending the data to the remote device.  
-            handler.BeginSend(byteData, 0, byteData.Length, 0,
-                new AsyncCallback(SendCallback), handler);
-        }
-
-        private static void SendCallback(IAsyncResult ar)
-        {
-            try
-            {
-                // Retrieve the socket from the state object.  
-                handler = (Socket)ar.AsyncState;
-
-                // Complete sending the data to the remote device.  
-                int bytesSent = handler.EndSend(ar);
-                Console.WriteLine("Sent {0} bytes to client.", bytesSent);
-
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.ToString());
-            }
+                // Send back a response.
+                stream.Write(msg, 0, msg.Length);
+                Console.WriteLine("Sent: {0}", data);
+            });
         }
     }
 }

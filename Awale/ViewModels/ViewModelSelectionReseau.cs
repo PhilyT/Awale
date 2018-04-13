@@ -29,8 +29,10 @@ namespace Awale.ViewModels
         private Sauvegarde sauvegarde;
         private Player player1;
         private ObservableCollection<Player> joueurs;
-        Task<string> reponseClient;
-        Task responseServeur;
+        private Serveur server;
+        private Client client;
+        Task taskClient;
+        Task taskServeur;
         Timer timer1;
         Timer timer2;
         public ViewModelSelectionReseau(Frame frame)
@@ -54,7 +56,7 @@ namespace Awale.ViewModels
         private void OnClickRejoindre(object o)
         {
             player1.TourDeJeu = true;
-            reponseClient = Client.StartClient(iPAdverse, portAdverse, player1.Nom);
+            taskClient = Client.StartClient(iPAdverse, portAdverse, player1.Nom);
             timer1 = new Timer(2000);
             timer1.Elapsed += new ElapsedEventHandler(TimerRejoindre);
             timer1.Start();
@@ -63,46 +65,30 @@ namespace Awale.ViewModels
         private void OnClickHeberger(object o)
         {
             player1.TourDeJeu = true;
-            responseServeur = Serveur.Run(port, player1.Nom);
-            timer2 = new Timer(30000);
-            timer2.Elapsed += new ElapsedEventHandler(TimerHeberger);
-            timer2.Start();
+            server = new Serveur();
+            if (server.Start(port, player1.Nom)) {
+                taskServeur = server.Accept();
+                server.Reception += new EventHandler(ReceptionClient);
+                timer2 = new Timer(120000);
+                timer2.Elapsed += new ElapsedEventHandler(TimerHeberger);
+                timer2.Start();
+            }
         }
 
-        private async void TimerRejoindre(object sender, ElapsedEventArgs e)
+        private void ReceptionClient(object sender, EventArgs e)
         {
-            if (reponseClient.IsCompleted)
-            {
-                string response = await reponseClient;
-                if (!String.IsNullOrEmpty(response))
-                {
-                    GameView game = new GameView(frame, player1, new Player(response), new Client());
-                    frame.Navigate(game);
-                }
-                else
-                {
-                    Client.Stop();
-                }
-            }
-            else
-            {
-                Client.Stop();
-            }
+
+        }
+
+        private void TimerRejoindre(object sender, ElapsedEventArgs e)
+        {
+            
             timer1.Stop();
         }
 
-        private async void TimerHeberger(object sender, ElapsedEventArgs e)
+        private void TimerHeberger(object sender, ElapsedEventArgs e)
         {
-            if (responseServeur.IsCompleted && !String.IsNullOrEmpty(Serveur.NomPlayer2))
-            {
-                await responseServeur;
-                GameView game = new GameView(frame, player1, new Player(Serveur.NomPlayer2), new Serveur());
-                frame.Navigate(game);
-            }
-            else
-            {
-                Serveur.Stop();
-            }
+            
             timer2.Stop();
         }
 
@@ -122,8 +108,8 @@ namespace Awale.ViewModels
 
         private void OnClickRetour(object o)
         {
-            Client.Stop();
-            Serveur.Stop();
+            server.Stop();
+            //client.Stop();
             MenuView menu = new MenuView(frame);
             frame.Navigate(menu);
         }
